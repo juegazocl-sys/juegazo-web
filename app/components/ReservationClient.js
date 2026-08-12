@@ -113,12 +113,23 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
 
   return (
     <>
+      <div className="logo-top">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0990/5078/3013/files/Diseno_sin_titulo_4.png?v=1773529966"
+          alt="Juegazo"
+        />
+      </div>
+
       <section className="hero">
-        <div>
-          <p className="eyebrow">Arriendo de juegos para eventos</p>
-          <h1>Diversion a domicilio con reserva rapida</h1>
-          <p className="lead">Elige juegos o packs, confirma datos del evento y dejamos la reserva en Supabase.</p>
-          <a className="primary-link" href="#reservar">Reservar ahora</a>
+        <div className="hero-copy">
+          <p className="eyebrow">🎉 Arriendo de juegos para cumpleaños y eventos</p>
+          <h1>
+            <span>Diversion a domicilio con</span>
+            <strong>reserva online sin costo</strong>
+          </h1>
+          <p className="lead">
+            Elige tus juegos, aprovecha packs promocionales y en el siguiente paso confirmas comuna, fecha y horario.
+          </p>
         </div>
         <div className="hero-media">
           <video
@@ -129,11 +140,12 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
             playsInline
           />
         </div>
+        <a className="primary-link hero-cta" href="#packs">Reservar juegos</a>
+        <div className="stat-bar">🏀 Lo mas arrendado hoy: Basket Pro, Taca Taca y Hockey</div>
       </section>
 
       <section className="section" id="packs">
         <div className="section-head">
-          <p className="eyebrow">Packs</p>
           <h2>Packs recomendados</h2>
         </div>
         <div className="pack-grid">
@@ -150,7 +162,6 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
 
       <section className="section" id="juegos">
         <div className="section-head">
-          <p className="eyebrow">Catalogo</p>
           <h2>Juegos disponibles</h2>
         </div>
         <div className="game-grid">
@@ -174,7 +185,6 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
 
       <section className="section reserve-layout" id="reservar">
         <div className="cart panel">
-          <p className="eyebrow">Tu seleccion</p>
           <h2>Reserva</h2>
           {cart.length ? (
             <div className="cart-list">
@@ -199,11 +209,10 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
             <div><span>Traslado</span><strong>{money(transfer)}</strong></div>
             <div><span>Total</span><strong>{money(total)}</strong></div>
           </div>
-          <small>Datos cargados desde: {source === "supabase" ? "Supabase" : "catalogo local"}</small>
+          <small>{source === "supabase" ? "Catalogo actualizado" : "Catalogo local"}</small>
         </div>
 
         <form className="panel form" onSubmit={submitReservation}>
-          <p className="eyebrow">Datos del evento</p>
           <h2>Confirmar reserva</h2>
           <label>
             Nombre
@@ -249,7 +258,8 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
           {status ? <p className="status">{status}</p> : null}
         </form>
       </section>
+
+      <a className="float-reserva" href="#packs">Reservar juegos</a>
     </>
   );
 }
-

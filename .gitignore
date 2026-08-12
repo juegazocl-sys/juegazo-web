@@ -7,3 +7,4 @@ node_modules/
 imports/private/
 
 .vercel
+reports/next-dev*.log
