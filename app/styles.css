@@ -231,6 +231,86 @@ main {
   white-space: nowrap;
 }
 
+.pack-builder-section {
+  scroll-margin-top: 12px;
+}
+.pack-builder {
+  max-width: 820px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+.compact-head {
+  margin-bottom: 2px;
+}
+.compact-head h2 {
+  margin-bottom: 0;
+  font-size: clamp(26px, 4vw, 38px);
+}
+.builder-summary,
+.locked-game,
+.builder-actions,
+.cart-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.builder-summary h3 {
+  margin: 8px 0 0;
+  font-size: clamp(22px, 4vw, 34px);
+  line-height: 1.05;
+}
+.builder-summary strong {
+  color: var(--brand-strong);
+  font-size: 28px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+.locked-game {
+  border: 1px solid rgba(27, 143, 216, .16);
+  border-radius: 16px;
+  background: #eef9ff;
+  padding: 13px 14px;
+}
+.locked-game span,
+.builder-note,
+.form-gate {
+  color: var(--muted);
+}
+.locked-game strong {
+  color: var(--navy);
+}
+.pack-picks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.pack-picks label {
+  display: grid;
+  gap: 7px;
+  color: #243247;
+  font-weight: 850;
+}
+.pack-picks select {
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, .14);
+  border-radius: 14px;
+  background: #fff;
+  padding: 13px 14px;
+  color: var(--ink);
+}
+.builder-actions button,
+.cart-actions button {
+  flex: 1;
+}
+.builder-note,
+.form-gate {
+  margin: 0;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
 .game-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -293,10 +373,16 @@ main {
   padding-top: 12px;
   border-top: 1px solid var(--line);
 }
+.cart-actions {
+  margin: 14px 0 10px;
+}
 
 .form {
   display: grid;
   gap: 12px;
+}
+.form-disabled {
+  display: none;
 }
 .form label {
   display: grid;
@@ -530,8 +616,22 @@ main {
   }
   .tag { font-size: 11px; padding: 5px 8px; }
   .game-grid,
-  .form-row {
+  .form-row,
+  .pack-picks {
     grid-template-columns: 1fr;
+  }
+  .builder-summary,
+  .locked-game,
+  .builder-actions,
+  .cart-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .builder-summary {
+    align-items: flex-start;
+  }
+  .builder-summary strong {
+    font-size: 24px;
   }
 }
 
