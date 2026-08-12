@@ -1,0 +1,213 @@
+{
+  "generated_at": "2026-08-12T12:46:44.057Z",
+  "sources": [
+    "Juegazo landing.txt",
+    "juegazo-vercel\\index.html"
+  ],
+  "games": [
+    {
+      "id": "basket",
+      "name": "Basket Pro",
+      "price": 35000,
+      "tag": "Mas pedido",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "taca",
+      "name": "Taca Taca",
+      "price": 30000,
+      "tag": "Top ventas",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "hockey",
+      "name": "Hockey",
+      "price": 35000,
+      "tag": "Muy pedido",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "inflable",
+      "name": "Inflable",
+      "price": 55000,
+      "tag": "Cumpleanos",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "nerf",
+      "name": "Pistolas Nerf",
+      "price": 30000,
+      "tag": "Punteria",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "subfutbol",
+      "name": "Subfutbol",
+      "price": 40000,
+      "tag": "Mesa",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "pool",
+      "name": "Pool JR",
+      "price": 25000,
+      "tag": "Ninos",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "pingpong",
+      "name": "Ping Pong JR",
+      "price": 20000,
+      "tag": "Complemento",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "tetris",
+      "name": "Tetris Tumble XL",
+      "price": 40000,
+      "tag": "Equilibrio",
+      "source": "Juegazo landing.txt"
+    }
+  ],
+  "packs": [
+    {
+      "id": "pack1",
+      "name": "Basket + 2 juegos a eleccion",
+      "base": "basket",
+      "picks": 2,
+      "price": 69900,
+      "tag": "Promocion",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "pack2",
+      "name": "Basket + 1 juego a eleccion",
+      "base": "basket",
+      "picks": 1,
+      "price": 54900,
+      "tag": "Promocion",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "pack3",
+      "name": "Subfutbol + 1 juego a eleccion",
+      "base": "subfutbol",
+      "picks": 1,
+      "price": 64900,
+      "tag": "Catalogo",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "pack4",
+      "name": "Inflable + 1 juego a eleccion",
+      "base": "inflable",
+      "picks": 1,
+      "price": 79900,
+      "tag": "Cumpleanos",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "pack5",
+      "name": "Inflable + 2 juegos a eleccion",
+      "base": "inflable",
+      "picks": 2,
+      "price": 94900,
+      "tag": "Mas completo",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "pack7",
+      "name": "Hockey + Ping Pong JR",
+      "fixed": [
+        "hockey",
+        "pingpong"
+      ],
+      "price": 44900,
+      "tag": "Express",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "pack9",
+      "name": "Pistolas Nerf + 1 juego a eleccion",
+      "base": "nerf",
+      "picks": 1,
+      "price": 54900,
+      "tag": "Catalogo",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "silver",
+      "name": "Pack Silver - 4 juegos a eleccion",
+      "picksOnly": 4,
+      "price": 99900,
+      "tag": "Pack Silver",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "id": "golden",
+      "name": "Pack Golden - 5 juegos a eleccion",
+      "picksOnly": 5,
+      "price": 119900,
+      "tag": "Pack Golden",
+      "source": "Juegazo landing.txt"
+    }
+  ],
+  "shopify_assets": [
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/Diseno_sin_titulo_4.png?v=1773529966",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/videos/c/o/v/3ad237893d6545c490a15250cc911208.mp4",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/Copia_de_Post_Instagram_Dia_Internacional_de_las_Mujeres_8_de_Marzo.png?v=1773524097",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/Copia_de_Post_Instagram_Dia_Internacional_de_las_Mujeres_8_de_Marzo_1.png?v=1773524101",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/473713885_122191861508088259_1898842169106789150_n.jpg?v=1773524205",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/3.png?v=1773523708",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/2.png?v=1773523705",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/1_1.png?v=1773523659",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/7.png?v=1773523718",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/6.png?v=1773523715",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/4.png?v=1773523709",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/5.png?v=1773523712",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/25B9036A-F026-4BC2-A9B6-23B68EB7FF4A.png?v=1780156655",
+      "source": "Juegazo landing.txt"
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/8.png?v=1773523721",
+      "source": "Juegazo landing.txt"
+    }
+  ]
+}

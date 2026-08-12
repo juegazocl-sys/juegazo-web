@@ -1,0 +1,9 @@
+node_modules/
+.next/
+.vercel/
+.env
+.env.local
+imports/shopify/*.csv
+imports/shopify/*.json
+!imports/shopify/*.template.csv
+!imports/shopify/README.md
