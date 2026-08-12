@@ -7,14 +7,13 @@ create table if not exists public.games (
   tag text,
   description text,
   price integer not null check (price >= 0),
+  image_url text,
   age_recommendation text,
   players text,
   dimensions text,
   needs_power boolean not null default false,
   active boolean not null default true,
   sort_order integer not null default 0,
-  shopify_product_id text,
-  shopify_handle text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -40,8 +39,6 @@ create table if not exists public.packs (
   picks_count integer not null default 0,
   active boolean not null default true,
   sort_order integer not null default 0,
-  shopify_product_id text,
-  shopify_handle text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -68,7 +65,6 @@ create table if not exists public.customers (
   name text not null,
   phone text not null,
   email text,
-  shopify_customer_id text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -90,7 +86,6 @@ create table if not exists public.reservations (
   total_amount integer not null default 0,
   status text not null default 'new' check (status in ('new','contacted','confirmed','cancelled','completed')),
   source text not null default 'web',
-  shopify_order_id text,
   raw_payload jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -108,16 +103,6 @@ create table if not exists public.reservation_items (
   raw_payload jsonb not null default '{}'::jsonb
 );
 
-create table if not exists public.shopify_imports (
-  id uuid primary key default gen_random_uuid(),
-  resource_type text not null,
-  resource_id text,
-  handle text,
-  payload jsonb not null,
-  imported_at timestamptz not null default now(),
-  unique(resource_type, resource_id)
-);
-
 create index if not exists games_active_sort_idx on public.games(active, sort_order, name);
 create index if not exists packs_active_sort_idx on public.packs(active, sort_order, name);
 create index if not exists reservations_event_date_idx on public.reservations(event_date);
@@ -131,7 +116,6 @@ alter table public.service_areas enable row level security;
 alter table public.customers enable row level security;
 alter table public.reservations enable row level security;
 alter table public.reservation_items enable row level security;
-alter table public.shopify_imports enable row level security;
 
 create policy "Public can read active games"
   on public.games for select
@@ -153,21 +137,22 @@ create policy "Public can read active service areas"
   on public.service_areas for select
   using (active = true);
 
-insert into public.games (slug, name, tag, price, age_recommendation, players, dimensions, needs_power, sort_order)
+insert into public.games (slug, name, tag, price, image_url, age_recommendation, players, dimensions, needs_power, sort_order)
 values
-  ('basket', 'Basket Pro', 'Mas pedido', 35000, '+6', 'Hasta 2 jugadores simultaneos', '210 x 205 x 65 cm', false, 10),
-  ('taca', 'Taca Taca', 'Top ventas', 30000, '+4', 'Hasta 4 jugadores simultaneos', '120 x 60 x 65 cm', false, 20),
-  ('hockey', 'Hockey', 'Muy pedido', 35000, '+6', 'Hasta 2 jugadores simultaneos', '152 x 78 x 80 cm', true, 30),
-  ('inflable', 'Inflable', 'Cumpleanos', 55000, '4 a 8 anos', 'Hasta 3 jugadores simultaneos', '300 x 400 x 600 cm', false, 40),
-  ('nerf', 'Pistolas Nerf', 'Punteria', 30000, '+2', 'Hasta 5 jugadores simultaneos', '150 x 150 x 120 cm', false, 50),
-  ('subfutbol', 'Subfutbol', 'Mesa', 40000, '+5', 'Hasta 2 jugadores simultaneos', '210 x 70 x 100 cm', false, 60),
-  ('pool', 'Pool JR', 'Ninos', 25000, '+6', 'Hasta 2 jugadores simultaneos', '120 x 60 x 65 cm', false, 70),
-  ('pingpong', 'Ping Pong JR', 'Complemento', 20000, '+5', 'Hasta 2 jugadores simultaneos', '120 x 60 x 65 cm', false, 80),
-  ('tetris', 'Tetris Tumble XL', 'Equilibrio', 40000, '+6', 'Sin limite de jugadores', '160 x 150 x 65 cm', false, 90)
+  ('basket', 'Basket Pro', 'Mas pedido', 35000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/3.png?v=1773523708', '+6', 'Hasta 2 jugadores simultaneos', '210 x 205 x 65 cm', false, 10),
+  ('taca', 'Taca Taca', 'Top ventas', 30000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/2.png?v=1773523705', '+4', 'Hasta 4 jugadores simultaneos', '120 x 60 x 65 cm', false, 20),
+  ('hockey', 'Hockey', 'Muy pedido', 35000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/1_1.png?v=1773523659', '+6', 'Hasta 2 jugadores simultaneos', '152 x 78 x 80 cm', true, 30),
+  ('inflable', 'Inflable', 'Cumpleanos', 55000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/8.png?v=1773523721', '4 a 8 anos', 'Hasta 3 jugadores simultaneos', '300 x 400 x 600 cm', false, 40),
+  ('nerf', 'Pistolas Nerf', 'Punteria', 30000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/7.png?v=1773523718', '+2', 'Hasta 5 jugadores simultaneos', '150 x 150 x 120 cm', false, 50),
+  ('subfutbol', 'Subfutbol', 'Mesa', 40000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/6.png?v=1773523715', '+5', 'Hasta 2 jugadores simultaneos', '210 x 70 x 100 cm', false, 60),
+  ('pool', 'Pool JR', 'Ninos', 25000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/4.png?v=1773523709', '+6', 'Hasta 2 jugadores simultaneos', '120 x 60 x 65 cm', false, 70),
+  ('pingpong', 'Ping Pong JR', 'Complemento', 20000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/5.png?v=1773523712', '+5', 'Hasta 2 jugadores simultaneos', '120 x 60 x 65 cm', false, 80),
+  ('tetris', 'Tetris Tumble XL', 'Equilibrio', 40000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/25B9036A-F026-4BC2-A9B6-23B68EB7FF4A.png?v=1780156655', '+6', 'Sin limite de jugadores', '160 x 150 x 65 cm', false, 90)
 on conflict (slug) do update set
   name = excluded.name,
   tag = excluded.tag,
   price = excluded.price,
+  image_url = excluded.image_url,
   age_recommendation = excluded.age_recommendation,
   players = excluded.players,
   dimensions = excluded.dimensions,
@@ -220,4 +205,3 @@ values
 on conflict (commune) do update set
   transfer_price = excluded.transfer_price,
   sort_order = excluded.sort_order;
-

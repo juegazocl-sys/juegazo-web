@@ -14,8 +14,8 @@ const required = [
   "app/api/reservations/route.js",
   "lib/supabase-admin.js",
   "supabase/migrations/001_initial_schema.sql",
-  "docs/shopify-audit.md",
-  "docs/migration-plan.md",
+  "docs/rebuild-plan.md",
+  "docs/deployment-plan.md",
   "docs/accounts-checklist.md"
 ];
 
@@ -26,8 +26,7 @@ for (const file of required) {
 }
 
 const sql = fs.readFileSync(path.join(root, "supabase/migrations/001_initial_schema.sql"), "utf8");
-for (const table of ["games", "packs", "service_areas", "reservations", "shopify_imports"]) {
+for (const table of ["games", "packs", "service_areas", "reservations", "reservation_items"]) {
   if (!sql.includes(`public.${table}`)) throw new Error(`Falta tabla ${table}`);
 }
 console.log("schema ok");
-

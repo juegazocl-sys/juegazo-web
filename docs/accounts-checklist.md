@@ -1,36 +1,22 @@
 # Checklist de cuentas
 
-## Shopify
-
-- Store URL:
-- Admin access:
-- Plan actual:
-- Dominio principal:
-- Apps instaladas:
-- Pasarelas de pago:
-- Export productos:
-- Export clientes:
-- Export ordenes:
-- Theme actual:
-
 ## Supabase
 
 - Project ref:
 - Region:
-- DB password guardada:
 - URL:
 - Anon key:
 - Service role key:
-- Storage requerido:
-- Backups activos:
+- SQL aplicado:
+- Reservas probadas:
 
 ## GitHub
 
 - Owner/organizacion:
 - Repo nuevo:
 - Visibilidad:
-- Branch principal:
-- Usuarios con acceso:
+- Branch principal: `main`
+- Remote local configurado:
 
 ## Vercel
 
@@ -41,13 +27,18 @@
 - Variables configuradas:
 - Deploy automatico desde GitHub:
 
-## Cloud
+## Cloudflare
 
-Puede referirse a Cloudflare, Google Cloud u otro proveedor. Confirmar:
+- Cuenta/zona:
+- Dominio:
+- Registros actuales respaldados:
+- Registros Vercel agregados:
+- Proxy naranja o DNS only:
 
-- Proveedor:
-- Tiene DNS:
-- Tiene almacenamiento:
-- Tiene correo:
-- Tiene workers/functions:
+## NIC.cl
+
+- Dominio:
+- Nameservers actuales:
+- Nameservers destino:
+- Fecha/hora de cambio:
 

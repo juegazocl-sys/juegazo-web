@@ -1,23 +1,22 @@
-# Juegazo Migration
+# Juegazo Web
 
-Proyecto nuevo para migrar desde Shopify a GitHub + Vercel + Supabase sin tocar el proyecto actual.
+Proyecto nuevo para reconstruir Juegazo en GitHub + Vercel + Supabase sin depender de Shopify.
 
 ## Estado
 
 - Fuente local analizada: `../Juegazo landing.txt` y `../juegazo-vercel/index.html`
-- App destino preparada: Next.js + Supabase
+- Web destino preparada: Next.js + Supabase
 - Base de datos preparada: `supabase/migrations/001_initial_schema.sql`
-- Export Shopify pendiente: productos, clientes, ordenes, paginas, menus, descuentos, dominios y configuracion.
+- Shopify descartado como fuente activa.
 
 ## Etapas
 
-1. Auditar Shopify y completar `docs/shopify-audit.md`.
+1. Aplicar SQL en el proyecto Supabase existente.
 2. Crear repo nuevo en GitHub con esta carpeta.
 3. Vincular repo nuevo en Vercel.
-4. Aplicar migracion SQL en el proyecto Supabase existente.
-5. Cargar catalogo/servicios desde `imports/shopify`.
-6. Configurar variables de entorno en Vercel.
-7. Ejecutar QA y redireccionar dominio cuando este todo probado.
+4. Configurar variables de entorno en Vercel.
+5. Ejecutar QA.
+6. Cambiar DNS del dominio cuando Vercel entregue los registros.
 
 ## Comandos
 
@@ -31,4 +30,3 @@ npm run dev
 ## Variables Vercel
 
 Copiar `.env.example` a `.env.local` para desarrollo y configurar lo mismo en Vercel.
-

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T12:46:44.057Z",
+  "generated_at": "2026-08-12T13:05:48.721Z",
   "sources": [
     "Juegazo landing.txt",
     "juegazo-vercel\\index.html"
@@ -152,7 +152,7 @@
       "source": "Juegazo landing.txt"
     }
   ],
-  "shopify_assets": [
+  "remote_assets": [
     {
       "url": "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/Diseno_sin_titulo_4.png?v=1773529966",
       "source": "Juegazo landing.txt"

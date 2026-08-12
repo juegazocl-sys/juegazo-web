@@ -66,7 +66,7 @@ const report = {
   sources: sources.map((file) => path.relative(root, file)),
   games: uniqueBy(games, (item) => item.id),
   packs: uniqueBy(packs, (item) => item.id),
-  shopify_assets: uniqueBy(assets, (item) => item.url)
+  remote_assets: uniqueBy(assets, (item) => item.url)
 };
 
 const reportsDir = path.join(projectRoot, "reports");
@@ -91,11 +91,11 @@ const md = [
   "|---|---|---:|---|",
   ...report.packs.map((pack) => `| ${pack.id} | ${pack.name} | ${pack.price} | ${pack.fixed ? "fixed" : pack.picksOnly ? "picks_only" : "base_plus_picks"} |`),
   "",
-  "## Assets Shopify",
-  ...report.shopify_assets.map((asset) => `- ${asset.url}`)
+  "## Assets remotos recuperados",
+  ...report.remote_assets.map((asset) => `- ${asset.url}`)
 ].join("\n");
 
 fs.writeFileSync(path.join(reportsDir, "local-audit.md"), md, "utf8");
 console.log(`Juegos: ${report.games.length}`);
 console.log(`Packs: ${report.packs.length}`);
-console.log(`Assets Shopify: ${report.shopify_assets.length}`);
+console.log(`Assets remotos: ${report.remote_assets.length}`);

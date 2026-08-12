@@ -1,6 +1,6 @@
 # Auditoria local automatica
 
-Generado: 2026-08-12T12:46:44.057Z
+Generado: 2026-08-12T13:05:48.721Z
 
 ## Fuentes
 - Juegazo landing.txt
@@ -32,7 +32,7 @@ Generado: 2026-08-12T12:46:44.057Z
 | silver | Pack Silver - 4 juegos a eleccion | 99900 | picks_only |
 | golden | Pack Golden - 5 juegos a eleccion | 119900 | picks_only |
 
-## Assets Shopify
+## Assets remotos recuperados
 - https://cdn.shopify.com/s/files/1/0990/5078/3013/files/Diseno_sin_titulo_4.png?v=1773529966
 - https://cdn.shopify.com/videos/c/o/v/3ad237893d6545c490a15250cc911208.mp4
 - https://cdn.shopify.com/s/files/1/0990/5078/3013/files/Copia_de_Post_Instagram_Dia_Internacional_de_las_Mujeres_8_de_Marzo.png?v=1773524097
