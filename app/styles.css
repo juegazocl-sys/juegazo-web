@@ -350,12 +350,130 @@ main {
   box-shadow: 0 12px 30px rgba(18, 59, 115, .22);
 }
 
+.news-hero,
+.article-page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 42px 0 20px;
+  text-align: center;
+}
+.news-hero h1,
+.article-page h1 {
+  margin: 12px 0;
+  color: var(--brand-strong);
+  font-size: clamp(38px, 7vw, 68px);
+  line-height: .96;
+  font-weight: 950;
+}
+.news-hero p,
+.article-excerpt {
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 750;
+  line-height: 1.42;
+}
+.back-link,
+.news-card a {
+  color: var(--brand-strong);
+  font-weight: 950;
+  text-decoration: none;
+}
+.back-link {
+  display: inline-flex;
+  margin-bottom: 12px;
+}
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: 24px 0 54px;
+}
+.news-card {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: #fff;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+.news-card time,
+.article-page time {
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 900;
+}
+.news-card h2 {
+  margin: 0;
+  font-size: clamp(20px, 3vw, 28px);
+  line-height: 1.08;
+}
+.news-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.article-page {
+  text-align: left;
+}
+.article-page h1,
+.article-page .article-excerpt {
+  text-align: left;
+  margin-left: 0;
+}
+.article-page > p:not(.article-excerpt) {
+  color: #344256;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.article-cta {
+  margin-top: 14px;
+}
+.news-strip {
+  text-align: center;
+}
+.news-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.news-mini {
+  display: grid;
+  gap: 8px;
+  min-height: 132px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fff;
+  padding: 16px;
+  color: var(--ink);
+  text-align: left;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+}
+.news-mini span {
+  color: var(--brand-strong);
+  font-size: 12px;
+  font-weight: 950;
+}
+.news-mini strong {
+  font-size: 18px;
+  line-height: 1.14;
+}
+.news-all {
+  margin: 0 auto;
+}
+
 @media (max-width: 900px) {
   .pack-grid,
   .game-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .reserve-layout { grid-template-columns: 1fr; }
+  .news-grid { grid-template-columns: 1fr; }
+  .news-strip-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {

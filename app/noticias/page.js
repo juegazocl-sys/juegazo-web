@@ -1,0 +1,30 @@
+import Link from "next/link";
+import { newsPosts } from "../../lib/news";
+
+export const metadata = {
+  title: "Noticias y consejos | Juegazo",
+  description: "Noticias, consejos e ideas para elegir juegos de arriendo para cumpleanos y eventos."
+};
+
+export default function NoticiasPage() {
+  return (
+    <main>
+      <section className="news-hero">
+        <Link className="back-link" href="/">Volver a reservar</Link>
+        <h1>Noticias y consejos Juegazo</h1>
+        <p>Ideas rapidas para elegir juegos, armar packs y preparar eventos con entretencion a domicilio.</p>
+      </section>
+
+      <section className="news-grid" aria-label="Noticias">
+        {newsPosts.map((post) => (
+          <article className="news-card" key={post.slug}>
+            <time dateTime={post.date}>{new Date(post.date).toLocaleDateString("es-CL")}</time>
+            <h2>{post.title}</h2>
+            <p>{post.excerpt}</p>
+            <Link href={`/noticias/${post.slug}`}>Leer noticia</Link>
+          </article>
+        ))}
+      </section>
+    </main>
+  );
+}

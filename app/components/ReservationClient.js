@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { money } from "../../lib/catalog";
+import { newsPosts } from "../../lib/news";
 
 function uniq(items) {
   return Array.from(new Set(items.filter(Boolean)));
@@ -257,6 +258,21 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
           <button type="submit" disabled={sending}>{sending ? "Enviando..." : "Enviar reserva"}</button>
           {status ? <p className="status">{status}</p> : null}
         </form>
+      </section>
+
+      <section className="section news-strip" id="noticias">
+        <div className="section-head">
+          <h2>Noticias Juegazo</h2>
+        </div>
+        <div className="news-strip-grid">
+          {newsPosts.slice(0, 3).map((post) => (
+            <a className="news-mini" href={`/noticias/${post.slug}`} key={post.slug}>
+              <span>{new Date(post.date).toLocaleDateString("es-CL")}</span>
+              <strong>{post.title}</strong>
+            </a>
+          ))}
+        </div>
+        <a className="primary-link news-all" href="/noticias">Ver todas las noticias</a>
       </section>
 
       <a className="float-reserva" href="#packs">Reservar juegos</a>
