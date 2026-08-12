@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from "../../../lib/supabase-admin";
+﻿import { getSupabaseServer } from "../../../lib/supabase-server";
 
 export async function POST(request) {
   try {
@@ -10,23 +10,26 @@ export async function POST(request) {
     if (!payload.event_date) throw new Error("Falta la fecha");
     if (!items.length) throw new Error("Agrega al menos un juego o pack");
 
-    const supabase = getSupabaseAdmin();
-    const { data: customer, error: customerError } = await supabase
-      .from("customers")
+    const supabase = getSupabaseServer();
+    const customerId = crypto.randomUUID();
+    const reservationId = crypto.randomUUID();
+
+    const { error: customerError } = await supabase
+      .from("juegazo_customers")
       .insert({
+        id: customerId,
         name: payload.customer_name,
         phone: payload.customer_phone,
         email: payload.customer_email || null
-      })
-      .select()
-      .single();
+      });
 
     if (customerError) throw customerError;
 
-    const { data: reservation, error } = await supabase
-      .from("reservations")
+    const { error } = await supabase
+      .from("juegazo_reservations")
       .insert({
-        customer_id: customer.id,
+        id: reservationId,
+        customer_id: customerId,
         customer_name: payload.customer_name,
         customer_phone: payload.customer_phone,
         customer_email: payload.customer_email || null,
@@ -40,14 +43,12 @@ export async function POST(request) {
         total_amount: Number(payload.total_amount || 0),
         source: payload.source || "web",
         raw_payload: payload
-      })
-      .select()
-      .single();
+      });
 
     if (error) throw error;
 
     const reservationItems = items.map((item) => ({
-      reservation_id: reservation.id,
+      reservation_id: reservationId,
       name: item.name,
       quantity: 1,
       unit_price: Number(item.price || 0),
@@ -56,13 +57,14 @@ export async function POST(request) {
     }));
 
     const { error: itemsError } = await supabase
-      .from("reservation_items")
+      .from("juegazo_reservation_items")
       .insert(reservationItems);
 
     if (itemsError) throw itemsError;
 
-    return Response.json({ ok: true, reservation }, { status: 201 });
+    return Response.json({ ok: true, reservation: { id: reservationId } }, { status: 201 });
   } catch (error) {
     return Response.json({ ok: false, error: error.message }, { status: 400 });
   }
 }
+

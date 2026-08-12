@@ -28,8 +28,7 @@
 2. Framework: Next.js.
 3. Variables:
    - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
    - `ADMIN_TOKEN`
    - `NEXT_PUBLIC_SITE_URL`
 4. Deploy preview.
@@ -45,4 +44,3 @@
    - `www`
    - SSL
    - reserva real en Supabase
-

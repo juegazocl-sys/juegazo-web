@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from "../../lib/supabase-admin";
+﻿import { getSupabaseServer } from "../../lib/supabase-server";
 import { money } from "../../lib/catalog";
 
 export const dynamic = "force-dynamic";
@@ -18,10 +18,21 @@ export default async function AdminPage({ searchParams }) {
     );
   }
 
-  const supabase = getSupabaseAdmin();
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return (
+      <main>
+        <section className="panel">
+          <h1>Reservas Juegazo</h1>
+          <p>El admin propio requiere configurar <code>SUPABASE_SERVICE_ROLE_KEY</code>. Mientras tanto, revisa reservas en Supabase.</p>
+        </section>
+      </main>
+    );
+  }
+
+  const supabase = getSupabaseServer();
   const { data: reservations, error } = await supabase
-    .from("reservations")
-    .select("*, reservation_items(*)")
+    .from("juegazo_reservations")
+    .select("*, juegazo_reservation_items(*)")
     .order("created_at", { ascending: false })
     .limit(100);
 
@@ -46,8 +57,8 @@ export default async function AdminPage({ searchParams }) {
             <article className="admin-card" key={reservation.id}>
               <div>
                 <h3>{reservation.customer_name}</h3>
-                <p>{reservation.customer_phone} · {reservation.customer_email || "sin email"}</p>
-                <p>{reservation.event_commune} · {reservation.event_date} · {reservation.start_time || "hora por definir"}</p>
+                <p>{reservation.customer_phone} Â· {reservation.customer_email || "sin email"}</p>
+                <p>{reservation.event_commune} Â· {reservation.event_date} Â· {reservation.start_time || "hora por definir"}</p>
                 <p>{(reservation.reservation_items || []).map((item) => item.name).join(" + ")}</p>
               </div>
               <strong>{money(reservation.total_amount)}</strong>

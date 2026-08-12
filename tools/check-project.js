@@ -1,4 +1,4 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
@@ -12,7 +12,7 @@ const required = [
   "app/layout.js",
   "app/api/health/route.js",
   "app/api/reservations/route.js",
-  "lib/supabase-admin.js",
+  "lib/supabase-server.js",
   "supabase/migrations/001_initial_schema.sql",
   "docs/rebuild-plan.md",
   "docs/deployment-plan.md",
@@ -26,7 +26,8 @@ for (const file of required) {
 }
 
 const sql = fs.readFileSync(path.join(root, "supabase/migrations/001_initial_schema.sql"), "utf8");
-for (const table of ["games", "packs", "service_areas", "reservations", "reservation_items"]) {
+for (const table of ["juegazo_games", "juegazo_packs", "juegazo_service_areas", "juegazo_reservations", "juegazo_reservation_items"]) {
   if (!sql.includes(`public.${table}`)) throw new Error(`Falta tabla ${table}`);
 }
 console.log("schema ok");
+

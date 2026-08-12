@@ -1,6 +1,6 @@
-create extension if not exists pgcrypto;
+﻿create extension if not exists pgcrypto;
 
-create table if not exists public.games (
+create table if not exists public.juegazo_games (
   id uuid primary key default gen_random_uuid(),
   slug text unique not null,
   name text not null,
@@ -18,9 +18,9 @@ create table if not exists public.games (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.game_assets (
+create table if not exists public.juegazo_game_assets (
   id uuid primary key default gen_random_uuid(),
-  game_id uuid references public.games(id) on delete cascade,
+  game_id uuid references public.juegazo_games(id) on delete cascade,
   url text not null,
   alt text,
   asset_type text not null default 'image' check (asset_type in ('image','video')),
@@ -28,7 +28,7 @@ create table if not exists public.game_assets (
   created_at timestamptz not null default now()
 );
 
-create table if not exists public.packs (
+create table if not exists public.juegazo_packs (
   id uuid primary key default gen_random_uuid(),
   slug text unique not null,
   name text not null,
@@ -43,16 +43,16 @@ create table if not exists public.packs (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.pack_games (
+create table if not exists public.juegazo_pack_games (
   id uuid primary key default gen_random_uuid(),
-  pack_id uuid references public.packs(id) on delete cascade,
-  game_id uuid references public.games(id) on delete cascade,
+  pack_id uuid references public.juegazo_packs(id) on delete cascade,
+  game_id uuid references public.juegazo_games(id) on delete cascade,
   role text not null default 'included' check (role in ('base','included','eligible')),
   sort_order integer not null default 0,
   unique(pack_id, game_id, role)
 );
 
-create table if not exists public.service_areas (
+create table if not exists public.juegazo_service_areas (
   id uuid primary key default gen_random_uuid(),
   commune text unique not null,
   transfer_price integer not null default 0 check (transfer_price >= 0),
@@ -60,7 +60,7 @@ create table if not exists public.service_areas (
   sort_order integer not null default 0
 );
 
-create table if not exists public.customers (
+create table if not exists public.juegazo_customers (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   phone text not null,
@@ -69,9 +69,9 @@ create table if not exists public.customers (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.reservations (
+create table if not exists public.juegazo_reservations (
   id uuid primary key default gen_random_uuid(),
-  customer_id uuid references public.customers(id),
+  customer_id uuid references public.juegazo_customers(id),
   customer_name text not null,
   customer_phone text not null,
   customer_email text,
@@ -91,11 +91,11 @@ create table if not exists public.reservations (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.reservation_items (
+create table if not exists public.juegazo_reservation_items (
   id uuid primary key default gen_random_uuid(),
-  reservation_id uuid references public.reservations(id) on delete cascade,
-  game_id uuid references public.games(id),
-  pack_id uuid references public.packs(id),
+  reservation_id uuid references public.juegazo_reservations(id) on delete cascade,
+  game_id uuid references public.juegazo_games(id),
+  pack_id uuid references public.juegazo_packs(id),
   name text not null,
   quantity integer not null default 1 check (quantity > 0),
   unit_price integer not null default 0,
@@ -103,41 +103,53 @@ create table if not exists public.reservation_items (
   raw_payload jsonb not null default '{}'::jsonb
 );
 
-create index if not exists games_active_sort_idx on public.games(active, sort_order, name);
-create index if not exists packs_active_sort_idx on public.packs(active, sort_order, name);
-create index if not exists reservations_event_date_idx on public.reservations(event_date);
-create index if not exists reservations_status_idx on public.reservations(status);
+create index if not exists juegazo_games_active_sort_idx on public.juegazo_games(active, sort_order, name);
+create index if not exists juegazo_packs_active_sort_idx on public.juegazo_packs(active, sort_order, name);
+create index if not exists juegazo_reservations_event_date_idx on public.juegazo_reservations(event_date);
+create index if not exists juegazo_reservations_status_idx on public.juegazo_reservations(status);
 
-alter table public.games enable row level security;
-alter table public.game_assets enable row level security;
-alter table public.packs enable row level security;
-alter table public.pack_games enable row level security;
-alter table public.service_areas enable row level security;
-alter table public.customers enable row level security;
-alter table public.reservations enable row level security;
-alter table public.reservation_items enable row level security;
+alter table public.juegazo_games enable row level security;
+alter table public.juegazo_game_assets enable row level security;
+alter table public.juegazo_packs enable row level security;
+alter table public.juegazo_pack_games enable row level security;
+alter table public.juegazo_service_areas enable row level security;
+alter table public.juegazo_customers enable row level security;
+alter table public.juegazo_reservations enable row level security;
+alter table public.juegazo_reservation_items enable row level security;
 
 create policy "Public can read active games"
-  on public.games for select
+  on public.juegazo_games for select
   using (active = true);
 
 create policy "Public can read game assets"
-  on public.game_assets for select
+  on public.juegazo_game_assets for select
   using (true);
 
 create policy "Public can read active packs"
-  on public.packs for select
+  on public.juegazo_packs for select
   using (active = true);
 
 create policy "Public can read pack games"
-  on public.pack_games for select
+  on public.juegazo_pack_games for select
   using (true);
 
 create policy "Public can read active service areas"
-  on public.service_areas for select
+  on public.juegazo_service_areas for select
   using (active = true);
 
-insert into public.games (slug, name, tag, price, image_url, age_recommendation, players, dimensions, needs_power, sort_order)
+create policy "Public can create customers"
+  on public.juegazo_customers for insert
+  with check (true);
+
+create policy "Public can create reservations"
+  on public.juegazo_reservations for insert
+  with check (true);
+
+create policy "Public can create reservation items"
+  on public.juegazo_reservation_items for insert
+  with check (true);
+
+insert into public.juegazo_games (slug, name, tag, price, image_url, age_recommendation, players, dimensions, needs_power, sort_order)
 values
   ('basket', 'Basket Pro', 'Mas pedido', 35000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/3.png?v=1773523708', '+6', 'Hasta 2 jugadores simultaneos', '210 x 205 x 65 cm', false, 10),
   ('taca', 'Taca Taca', 'Top ventas', 30000, 'https://cdn.shopify.com/s/files/1/0990/5078/3013/files/2.png?v=1773523705', '+4', 'Hasta 4 jugadores simultaneos', '120 x 60 x 65 cm', false, 20),
@@ -160,7 +172,7 @@ on conflict (slug) do update set
   sort_order = excluded.sort_order,
   updated_at = now();
 
-insert into public.packs (slug, name, tag, price, pack_type, base_game_slug, picks_count, sort_order)
+insert into public.juegazo_packs (slug, name, tag, price, pack_type, base_game_slug, picks_count, sort_order)
 values
   ('basket-2-juegos', 'Basket + 2 juegos a eleccion', 'Promocion', 69900, 'base_plus_picks', 'basket', 2, 10),
   ('basket-1-juego', 'Basket + 1 juego a eleccion', 'Promocion', 54900, 'base_plus_picks', 'basket', 1, 20),
@@ -181,7 +193,7 @@ on conflict (slug) do update set
   sort_order = excluded.sort_order,
   updated_at = now();
 
-insert into public.service_areas (commune, transfer_price, sort_order)
+insert into public.juegazo_service_areas (commune, transfer_price, sort_order)
 values
   ('Rancagua', 0, 10),
   ('Machali', 3000, 20),
@@ -205,3 +217,4 @@ values
 on conflict (commune) do update set
   transfer_price = excluded.transfer_price,
   sort_order = excluded.sort_order;
+
