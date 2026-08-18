@@ -303,7 +303,10 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
                 <p>{game.dimensions}</p>
                 <div className="card-bottom">
                   <strong>{money(game.price)}</strong>
-                  <button type="button" onClick={() => addGame(game)}>Agregar</button>
+                  <div className="game-actions">
+                    <a href={`/productos/${game.slug}`}>Detalle</a>
+                    <button type="button" onClick={() => addGame(game)}>Agregar</button>
+                  </div>
                 </div>
               </div>
             </article>

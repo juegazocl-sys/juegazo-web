@@ -1,4 +1,5 @@
-﻿import { getSupabaseServer } from "../../../lib/supabase-server";
+import { sendReservationEmail } from "../../../lib/reservation-email";
+import { getSupabaseServer } from "../../../lib/supabase-server";
 
 export async function POST(request) {
   try {
@@ -62,9 +63,14 @@ export async function POST(request) {
 
     if (itemsError) throw itemsError;
 
-    return Response.json({ ok: true, reservation: { id: reservationId } }, { status: 201 });
+    const email = await sendReservationEmail(payload, reservationId).catch((emailError) => ({
+      skipped: false,
+      ok: false,
+      error: emailError.message
+    }));
+
+    return Response.json({ ok: true, reservation: { id: reservationId }, email }, { status: 201 });
   } catch (error) {
     return Response.json({ ok: false, error: error.message }, { status: 400 });
   }
 }
-
