@@ -66,15 +66,6 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }}
         />
-        <header className="site-header">
-          <a className="site-brand" href="/" aria-label="Juegazo, inicio">Juegazo</a>
-          <nav aria-label="Navegacion principal">
-            <a href="/productos">Juegos</a>
-            <a href="/#packs">Packs</a>
-            <a href="/noticias">Noticias</a>
-            <a href="/#contacto">Contacto</a>
-          </nav>
-        </header>
         {children}
         <footer className="site-footer" id="contacto">
           <div>
@@ -86,6 +77,12 @@ export default function RootLayout({ children }) {
             <a href="tel:+56989010309">WhatsApp: +56 9 8901 0309</a>
             <a href="/productos">Catalogo de juegos</a>
           </div>
+          <nav className="footer-nav" aria-label="Navegacion principal">
+            <a href="/productos">Juegos</a>
+            <a href="/#packs">Packs</a>
+            <a href="/noticias">Noticias</a>
+            <a href="/#contacto">Contacto</a>
+          </nav>
         </footer>
       </body>
     </html>
