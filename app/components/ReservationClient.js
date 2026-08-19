@@ -194,6 +194,10 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
 
   function addConfiguredPack() {
     if (!activePack) return;
+    if (activePack.picks.includes("inflable")) {
+      setStatus("El inflable solo se puede usar como base en sus packs propios.");
+      return;
+    }
     if (!canAddActivePack) {
       setStatus("Elige juegos distintos para completar el pack.");
       return;
@@ -298,7 +302,10 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
 
       <section className="section" id="packs">
         <div className="section-head">
-          <h2>Packs recomendados</h2>
+          <div>
+            <h2>Packs recomendados</h2>
+            <p className="section-note">El inflable se puede reservar solo o como base en sus packs propios. No aparece como juego adicional en otros packs.</p>
+          </div>
         </div>
         <div className="pack-grid">
           {packs.map((pack) => (

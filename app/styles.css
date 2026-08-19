@@ -188,6 +188,14 @@ main {
   margin-bottom: 14px;
   text-align: center;
 }
+.section-note {
+  max-width: 680px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.45;
+}
 .section h2,
 .panel h2 {
   margin: 0 0 12px;
