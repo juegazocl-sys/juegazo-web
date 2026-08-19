@@ -224,6 +224,8 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
             muted
             loop
             playsInline
+            preload="metadata"
+            aria-label="Demostracion de juegos Juegazo en un evento"
           />
         </div>
         <a className="primary-link hero-cta" href="#packs">Reservar juegos</a>
@@ -414,6 +416,23 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
           ))}
         </div>
         <a className="primary-link news-all" href="/noticias">Ver todas las noticias</a>
+      </section>
+
+      <section className="section business-info" aria-labelledby="como-funciona-title">
+        <div>
+          <p className="eyebrow">Servicio local</p>
+          <h2 id="como-funciona-title">Como funciona el arriendo de juegos</h2>
+          <ol>
+            <li>Elige juegos individuales o un pack y revisa el precio publicado.</li>
+            <li>Indica comuna, fecha y horario para solicitar disponibilidad.</li>
+            <li>Juegazo revisa la solicitud y coordina la reserva por WhatsApp.</li>
+          </ol>
+        </div>
+        <div>
+          <h2>Cobertura y traslado</h2>
+          <p>El servicio cubre Rancagua, Machali y otras comunas de la Region de O'Higgins. El valor de traslado se muestra al elegir la comuna en el formulario.</p>
+          <a className="primary-link" href="tel:+56989010309">Contactar al +56 9 8901 0309</a>
+        </div>
       </section>
 
       <a className="float-reserva" href="#packs">Reservar juegos</a>

@@ -3,6 +3,12 @@ import { money } from "../../lib/catalog";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: "Administracion | Juegazo",
+  alternates: { canonical: "/admin" },
+  robots: { index: false, follow: false, noarchive: true }
+};
+
 export default async function AdminPage({ searchParams }) {
   const token = searchParams?.token;
   const adminToken = process.env.ADMIN_TOKEN;

@@ -1,9 +1,15 @@
 import Link from "next/link";
-import { newsPosts } from "../../lib/news";
+import { newsPosts, SITE_URL } from "../../lib/news";
 
 export const metadata = {
   title: "Noticias y consejos | Juegazo",
-  description: "Noticias, consejos e ideas para elegir juegos de arriendo para cumpleanos y eventos."
+  description: "Consejos para elegir juegos de arriendo, combinar packs y preparar cumpleanos y eventos.",
+  alternates: { canonical: `${SITE_URL}/noticias` },
+  openGraph: {
+    title: "Consejos para cumpleanos y eventos | Juegazo",
+    description: "Guias para elegir juegos, combinar packs y preparar tu evento.",
+    url: `${SITE_URL}/noticias`
+  }
 };
 
 export default function NoticiasPage() {

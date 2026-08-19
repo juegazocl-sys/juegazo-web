@@ -3,29 +3,29 @@ import { fallbackGames } from "../lib/catalog";
 import { getProductUrl } from "../lib/product-seo";
 
 export default function sitemap() {
-  const now = new Date();
+  const siteUpdated = new Date("2026-08-12");
   return [
     {
       url: SITE_URL,
-      lastModified: now,
+      lastModified: siteUpdated,
       changeFrequency: "weekly",
       priority: 1
     },
     {
       url: `${SITE_URL}/noticias`,
-      lastModified: now,
+      lastModified: siteUpdated,
       changeFrequency: "weekly",
       priority: 0.8
     },
     {
       url: `${SITE_URL}/productos`,
-      lastModified: now,
+      lastModified: siteUpdated,
       changeFrequency: "weekly",
       priority: 0.9
     },
     ...fallbackGames.map((game) => ({
       url: getProductUrl(game),
-      lastModified: now,
+      lastModified: siteUpdated,
       changeFrequency: "weekly",
       priority: 0.82
     })),
