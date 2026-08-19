@@ -7,6 +7,7 @@ export async function POST(request) {
     const items = Array.isArray(payload.items) ? payload.items : [];
     if (!payload.customer_name) throw new Error("Falta el nombre");
     if (!payload.customer_phone) throw new Error("Falta el WhatsApp");
+    if (!payload.event_region) throw new Error("Falta la región");
     if (!payload.event_commune) throw new Error("Falta la comuna");
     if (!payload.event_date) throw new Error("Falta la fecha");
     if (!items.length) throw new Error("Agrega al menos un juego o pack");

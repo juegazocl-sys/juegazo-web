@@ -64,7 +64,8 @@ export default async function AdminPage({ searchParams }) {
               <div>
                 <h3>{reservation.customer_name}</h3>
                 <p>{reservation.customer_phone} Â· {reservation.customer_email || "sin email"}</p>
-                <p>{reservation.event_commune} Â· {reservation.event_date} Â· {reservation.start_time || "hora por definir"}</p>
+                <p>{reservation.raw_payload?.event_type || "evento por definir"} Â· {reservation.raw_payload?.children_count === "" || reservation.raw_payload?.children_count == null ? "sin dato" : reservation.raw_payload.children_count} ninos</p>
+                <p>{reservation.raw_payload?.event_region || "region por definir"} Â· {reservation.event_commune} Â· {reservation.event_date} Â· {reservation.start_time || "hora por definir"}</p>
                 <p>{(reservation.reservation_items || []).map((item) => item.name).join(" + ")}</p>
               </div>
               <strong>{money(reservation.total_amount)}</strong>

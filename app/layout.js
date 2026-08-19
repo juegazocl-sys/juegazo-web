@@ -9,7 +9,7 @@ export const metadata = {
     default: "Juegazo | Arriendo de juegos para cumpleanos y eventos",
     template: "%s"
   },
-  description: "Reserva online juegos en arriendo para cumpleanos y eventos en Rancagua, Machali y comunas cercanas.",
+  description: "Reserva online juegos en arriendo para cumpleanos, fiestas privadas y eventos.",
   alternates: {
     canonical: SITE_URL
   },
@@ -18,7 +18,7 @@ export const metadata = {
   },
   openGraph: {
     title: "Juegazo | Arriendo de juegos para cumpleanos y eventos",
-    description: "Reserva online juegos en arriendo para cumpleanos y eventos en Rancagua, Machali y comunas cercanas.",
+    description: "Reserva online juegos en arriendo para cumpleanos, fiestas privadas y eventos.",
     url: SITE_URL,
     siteName: "Juegazo",
     type: "website",
@@ -28,7 +28,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Juegazo | Arriendo de juegos para eventos",
-    description: "Juegos y packs con reserva online en Rancagua, Machali y comunas cercanas.",
+    description: "Juegos y packs con reserva online para cumpleanos, fiestas privadas y eventos.",
     images: [logoUrl]
   }
 };
@@ -45,7 +45,7 @@ const organizationJsonLd = {
       image: logoUrl,
       telephone: "+56989010309",
       description: "Arriendo de juegos para cumpleanos y eventos con reserva online.",
-      areaServed: ["Rancagua", "Machali", "Requinoa", "Graneros", "Rengo", "San Vicente"]
+      areaServed: ["Región de O'Higgins", "Región Metropolitana"]
     },
     {
       "@type": "WebSite",
@@ -70,7 +70,7 @@ export default function RootLayout({ children }) {
         <footer className="site-footer" id="contacto">
           <div>
             <strong>Juegazo</strong>
-            <p>Arriendo de juegos para cumpleanos y eventos en Rancagua, Machali y comunas cercanas.</p>
+            <p>Juegos y packs para cumpleanos, fiestas privadas y eventos.</p>
           </div>
           <div>
             <strong>Contacto</strong>

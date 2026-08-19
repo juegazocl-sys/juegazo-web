@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Arriendo de juegos para cumpleanos y eventos | Juegazo",
-  description: "Arrienda juegos y packs para cumpleanos y eventos en Rancagua, Machali y comunas cercanas. Revisa precios y solicita tu reserva online.",
+  description: "Arrienda juegos y packs para cumpleanos, fiestas privadas y eventos. Revisa precios y solicita tu reserva online.",
   alternates: { canonical: SITE_URL }
 };
 

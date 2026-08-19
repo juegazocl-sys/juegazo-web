@@ -1,7 +1,31 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { money } from "../../lib/catalog";
+
+const defaultRegion = "Región de O'Higgins";
+
+const metropolitanCommunes = new Set([
+  "Providencia",
+  "Nunoa",
+  "Ñuñoa",
+  "Penalolen",
+  "Peñalolén",
+  "La Reina",
+  "Las Condes",
+  "Vitacura",
+  "Lo Barnechea",
+  "La Dehesa"
+]);
+
+const eventTypes = [
+  "Cumpleaños",
+  "Fiesta privada",
+  "Evento comunitario",
+  "Evento escolar",
+  "Evento empresa",
+  "Otro"
+];
 
 const gameDetails = {
   basket: [
@@ -74,12 +98,25 @@ function uniq(items) {
 }
 
 export default function ReservationClient({ games, packs, serviceAreas, source }) {
+  const normalizedServiceAreas = useMemo(() => serviceAreas.map((area) => ({
+    ...area,
+    region: area.region || (metropolitanCommunes.has(area.commune) ? "Región Metropolitana" : defaultRegion)
+  })), [serviceAreas]);
+  const regions = useMemo(() => {
+    const uniqueRegions = Array.from(new Set(normalizedServiceAreas.map((area) => area.region).filter(Boolean)));
+    return [
+      defaultRegion,
+      "Región Metropolitana",
+      ...uniqueRegions.filter((region) => region !== defaultRegion && region !== "Región Metropolitana")
+    ];
+  }, [normalizedServiceAreas]);
   const [cart, setCart] = useState([]);
   const [activePack, setActivePack] = useState(null);
   const [checkoutStep, setCheckoutStep] = useState("select");
   const [status, setStatus] = useState("");
   const [sending, setSending] = useState(false);
   const [confirmedReservation, setConfirmedReservation] = useState(null);
+  const [showFloatReserve, setShowFloatReserve] = useState(true);
   const packBuilderRef = useRef(null);
   const reserveRef = useRef(null);
   const formRef = useRef(null);
@@ -87,7 +124,10 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
     customer_name: "",
     customer_phone: "",
     customer_email: "",
-    event_commune: serviceAreas[0]?.commune || "Rancagua",
+    event_region: defaultRegion,
+    event_commune: normalizedServiceAreas.find((area) => area.region === defaultRegion)?.commune || "Rancagua",
+    event_type: eventTypes[0],
+    children_count: "",
     event_date: "",
     start_time: "",
     end_time: "",
@@ -95,7 +135,12 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
   });
 
   const gameMap = useMemo(() => Object.fromEntries(games.map((game) => [game.slug, game])), [games]);
-  const serviceArea = serviceAreas.find((area) => area.commune === form.event_commune);
+  const regionAreas = useMemo(
+    () => normalizedServiceAreas.filter((area) => area.region === form.event_region),
+    [normalizedServiceAreas, form.event_region]
+  );
+  const serviceArea = normalizedServiceAreas.find((area) => area.region === form.event_region && area.commune === form.event_commune)
+    || normalizedServiceAreas.find((area) => area.commune === form.event_commune);
   const subtotal = cart.reduce((sum, item) => sum + Number(item.price || 0), 0);
   const transfer = Number(serviceArea?.transfer_price || 0);
   const total = subtotal + transfer;
@@ -112,6 +157,28 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
   function updateField(name, value) {
     setForm((current) => ({ ...current, [name]: value }));
   }
+
+  function updateRegion(region) {
+    const firstCommune = normalizedServiceAreas.find((area) => area.region === region)?.commune || "";
+    setForm((current) => ({ ...current, event_region: region, event_commune: firstCommune }));
+  }
+
+  useEffect(() => {
+    function updateFloatVisibility() {
+      const packsSection = document.getElementById("packs");
+      if (!packsSection) return;
+      const hideAfter = packsSection.offsetTop + packsSection.offsetHeight - 80;
+      setShowFloatReserve(window.scrollY < hideAfter);
+    }
+
+    updateFloatVisibility();
+    window.addEventListener("scroll", updateFloatVisibility, { passive: true });
+    window.addEventListener("resize", updateFloatVisibility);
+    return () => {
+      window.removeEventListener("scroll", updateFloatVisibility);
+      window.removeEventListener("resize", updateFloatVisibility);
+    };
+  }, []);
 
   function addGame(game) {
     setConfirmedReservation(null);
@@ -242,6 +309,8 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
       customer_name: "",
       customer_phone: "",
       customer_email: "",
+      event_type: eventTypes[0],
+      children_count: "",
       event_date: "",
       start_time: "",
       end_time: "",
@@ -455,6 +524,9 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
                 {confirmedReservation.form.customer_email ? (
                   <div><dt>Email</dt><dd>{confirmedReservation.form.customer_email}</dd></div>
                 ) : null}
+                <div><dt>Tipo</dt><dd>{confirmedReservation.form.event_type}</dd></div>
+                <div><dt>Niños invitados</dt><dd>{confirmedReservation.form.children_count === "" ? "Por definir" : confirmedReservation.form.children_count}</dd></div>
+                <div><dt>Región</dt><dd>{confirmedReservation.form.event_region}</dd></div>
                 <div><dt>Comuna</dt><dd>{confirmedReservation.form.event_commune}</dd></div>
                 <div><dt>Fecha</dt><dd>{confirmedReservation.form.event_date}</dd></div>
                 {confirmedReservation.form.start_time || confirmedReservation.form.end_time ? (
@@ -507,7 +579,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
       ) : cart.length || checkoutStep === "confirm" || status ? (
       <section className="section reserve-layout" id="reservar" ref={reserveRef}>
         <div className="cart panel">
-          <h2>Reserva</h2>
+          <h2>{checkoutStep === "confirm" ? "Resumen de reserva" : "Reserva"}</h2>
           {cart.length ? (
             <div className="cart-list">
               {cart.map((item, index) => (
@@ -529,6 +601,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
             <div><span>Traslado</span><strong>{money(transfer)}</strong></div>
             <div><span>Total</span><strong>{money(total)}</strong></div>
           </div>
+          {checkoutStep !== "confirm" ? (
           <div className="cart-actions">
             <button type="button" className="ghost" onClick={() => document.getElementById("packs")?.scrollIntoView({ behavior: "smooth" })}>
               Agregar otro juego o pack
@@ -537,6 +610,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
               Continuar
             </button>
           </div>
+          ) : null}
           <small>{source === "supabase" ? "Catalogo actualizado" : "Catalogo local"}</small>
         </div>
 
@@ -557,10 +631,38 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
             Email
             <input type="email" value={form.customer_email} onChange={(event) => updateField("customer_email", event.target.value)} />
           </label>
+          <div className="form-row two-columns">
+            <label>
+              Tipo de evento
+              <select value={form.event_type} onChange={(event) => updateField("event_type", event.target.value)}>
+                {eventTypes.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Cantidad de niños invitados
+              <input
+                min="0"
+                inputMode="numeric"
+                type="number"
+                value={form.children_count}
+                onChange={(event) => updateField("children_count", event.target.value)}
+              />
+            </label>
+          </div>
+          <label>
+            Región
+            <select value={form.event_region} onChange={(event) => updateRegion(event.target.value)}>
+              {regions.map((region) => (
+                <option key={region} value={region}>{region}</option>
+              ))}
+            </select>
+          </label>
           <label>
             Comuna
             <select value={form.event_commune} onChange={(event) => updateField("event_commune", event.target.value)}>
-              {serviceAreas.map((area) => (
+              {regionAreas.map((area) => (
                 <option key={area.commune} value={area.commune}>
                   {area.commune} - traslado {money(area.transfer_price)}
                 </option>
@@ -603,12 +705,14 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
         </div>
         <div>
           <h2>Cobertura y traslado</h2>
-          <p>El servicio cubre Rancagua, Machali y otras comunas de la Region de O'Higgins. El valor de traslado se muestra al elegir la comuna en el formulario.</p>
+          <p>El valor de traslado se calcula segun la region y comuna elegida en el formulario. La disponibilidad final se confirma por WhatsApp.</p>
           <a className="primary-link" href="tel:+56989010309">Contactar al +56 9 8901 0309</a>
         </div>
       </section>
 
-      <a className="float-reserva" href="#packs">Reservar juegos</a>
+      {showFloatReserve && !cart.length && !activePack && !confirmedReservation && checkoutStep === "select" ? (
+        <a className="float-reserva" href="#packs">Reservar juegos</a>
+      ) : null}
     </>
   );
 }
