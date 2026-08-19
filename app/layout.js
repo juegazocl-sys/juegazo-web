@@ -71,7 +71,7 @@ export default function RootLayout({ children }) {
           <nav aria-label="Navegacion principal">
             <a href="/productos">Juegos</a>
             <a href="/#packs">Packs</a>
-            <a href="/noticias">Consejos</a>
+            <a href="/noticias">Noticias</a>
             <a href="/#contacto">Contacto</a>
           </nav>
         </header>

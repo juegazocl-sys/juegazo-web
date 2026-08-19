@@ -64,8 +64,6 @@ main {
 }
 
 .logo-top {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
   text-align: center;
   padding: 10px 0 8px;
   border-bottom: 1px solid rgba(15, 23, 42, .06);
@@ -81,8 +79,8 @@ main {
 .hero {
   display: grid;
   justify-items: center;
-  gap: 12px;
-  padding: 32px 0 20px;
+  gap: 10px;
+  padding: 24px 0 18px;
 }
 .hero-copy {
   width: 100%;
@@ -91,12 +89,12 @@ main {
 }
 .hero h1 {
   display: grid;
-  gap: 2px;
-  margin: 12px auto 16px;
-  max-width: 900px;
-  font-size: clamp(42px, 8vw, 76px);
+  gap: 4px;
+  margin: 10px auto 12px;
+  max-width: 820px;
+  font-size: clamp(38px, 5vw, 58px);
   letter-spacing: 0;
-  line-height: .92;
+  line-height: 1.02;
   font-weight: 950;
 }
 .hero h1 span { color: var(--yellow); text-shadow: 0 2px 0 rgba(255, 255, 255, .75); }
@@ -106,7 +104,7 @@ main {
   max-width: 760px;
   margin: 0 auto;
   color: #5d6675;
-  font-size: clamp(18px, 3.2vw, 30px);
+  font-size: clamp(18px, 2vw, 23px);
   font-weight: 750;
   line-height: 1.45;
 }
@@ -122,7 +120,7 @@ main {
   border-radius: 999px;
   background: #e9f7ff;
   color: var(--navy);
-  font-size: clamp(13px, 2.3vw, 24px);
+  font-size: clamp(13px, 1.6vw, 17px);
   font-weight: 900;
   line-height: 1.2;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
@@ -130,7 +128,7 @@ main {
 
 .hero-media {
   width: min(100%, 820px);
-  height: clamp(360px, 74vh, 720px);
+  height: clamp(360px, 64vh, 640px);
   margin-top: 10px;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -335,15 +333,39 @@ main {
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
-.game-card { overflow: hidden; }
-.game-card img { aspect-ratio: 1 / 1; }
-.game-card > div {
+.game-card {
+  overflow: hidden;
   display: grid;
-  gap: 8px;
-  padding: 15px;
+  grid-template-columns: 1fr;
+}
+.game-media {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  background: #f7fbff;
+}
+.game-media h3 {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  margin: 0;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(18, 59, 115, .04), rgba(18, 59, 115, .82));
+  color: #fff;
+  padding: 24px 14px 11px;
+  font-size: 22px;
+  line-height: 1.05;
+}
+.game-body {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 18px;
+  min-width: 0;
 }
 .game-card p,
 .cart-item span,
@@ -353,6 +375,37 @@ main {
   line-height: 1.45;
 }
 .game-card p { margin: 0; }
+.game-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.price-tag {
+  color: var(--brand-strong);
+  font-size: 13px;
+}
+.game-detail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 7px;
+}
+.game-detail-list li {
+  position: relative;
+  padding-left: 18px;
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.35;
+}
+.game-detail-list li::before {
+  content: "*";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--brand-strong);
+  font-weight: 950;
+}
 .card-bottom,
 .cart-item,
 .totals div,
@@ -366,6 +419,7 @@ main {
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
 }
 .game-actions a,
 .ghost-link {
@@ -385,6 +439,10 @@ main {
 .game-actions button {
   min-height: 42px;
   padding: 0 12px;
+}
+.game-actions a,
+.game-actions button {
+  flex: 1;
 }
 
 .reserve-layout {
@@ -823,15 +881,15 @@ main {
   .eyebrow {
     width: calc(100% - 20px);
     padding: 9px 12px;
-    font-size: 20px;
+    font-size: 18px;
   }
   .hero h1 {
     margin-top: 14px;
-    font-size: 44px;
+    font-size: 40px;
   }
   .lead {
     padding: 0 10px;
-    font-size: 24px;
+    font-size: 21px;
   }
   .hero-media {
     width: 100%;
@@ -865,17 +923,7 @@ main {
     font-size: 13px;
   }
   .tag { font-size: 11px; padding: 5px 8px; }
-  .card-bottom {
-    align-items: stretch;
-    flex-direction: column;
-  }
-  .game-actions {
-    width: 100%;
-  }
-  .game-actions a,
-  .game-actions button {
-    flex: 1;
-  }
+  .card-bottom { align-items: stretch; }
   .product-page {
     padding-top: 24px;
   }

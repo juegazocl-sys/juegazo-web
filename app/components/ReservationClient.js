@@ -2,7 +2,72 @@
 
 import { useMemo, useRef, useState } from "react";
 import { money } from "../../lib/catalog";
-import { newsPosts } from "../../lib/news";
+
+const gameDetails = {
+  basket: [
+    "Juego con marcador electronico e incluye pilas",
+    "Permite hasta 2 jugadores simultaneos",
+    "Edad recomendada: +6",
+    "Recomendacion: combinar con al menos 1 juego si el evento tiene mas de 5 invitados",
+    "Medidas: 210 x 205 x 65 cm"
+  ],
+  taca: [
+    "Juego de futbol manual",
+    "Permite hasta 4 jugadores simultaneos",
+    "Edad recomendada: +4",
+    "Recomendacion: combinar con al menos 1 juego si el evento tiene mas de 5 invitados",
+    "Medidas: 120 x 60 x 65 cm"
+  ],
+  hockey: [
+    "Juego electrico con marcador digital",
+    "Permite hasta 2 jugadores simultaneos",
+    "Edad recomendada: +6",
+    "Este juego necesita conexion electrica",
+    "Medidas: 152 x 78 x 80 cm"
+  ],
+  nerf: [
+    "Incluye 5 pistolas Nerf y tela con puntaje",
+    "Permite hasta 5 jugadores simultaneos",
+    "Edad recomendada: +2",
+    "Recomendado combinar con al menos 1 juego",
+    "Medidas: 150 x 150 x 120 cm"
+  ],
+  subfutbol: [
+    "Juego de mesa grande con dinamica de futbol",
+    "Permite hasta 2 jugadores simultaneos",
+    "Edad recomendada: +5",
+    "Recomendado combinar con al menos 1 juego",
+    "Medidas: 210 x 70 x 100 cm"
+  ],
+  pool: [
+    "Juego en tamano para ninos",
+    "Permite hasta 2 jugadores simultaneos",
+    "Edad recomendada: +6",
+    "Recomendado combinar con al menos 1 juego",
+    "Medidas: 120 x 60 x 65 cm"
+  ],
+  pingpong: [
+    "Juego de paletas",
+    "Permite hasta 2 jugadores simultaneos",
+    "Edad recomendada: +5",
+    "Recomendado combinar con al menos 1 juego",
+    "Medidas: 120 x 60 x 65 cm"
+  ],
+  inflable: [
+    "2 versiones: acuatico o con pelotas",
+    "Permite hasta 3 jugadores simultaneos",
+    "Rango de edad: 4 a 8 anos",
+    "Este juego se puede reservar solo o en sus packs propios con juegos adicionales",
+    "Medidas: 300 x 400 x 600 cm"
+  ],
+  tetris: [
+    "Juego de equilibrio",
+    "Sin limite de jugadores",
+    "Edad recomendada: +6",
+    "Recomendacion: combinar con al menos 1 juego si el evento tiene mas de 5 invitados",
+    "Medidas: 160 x 150 x 65 cm"
+  ]
+};
 
 function uniq(items) {
   return Array.from(new Set(items.filter(Boolean)));
@@ -210,8 +275,8 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
         <div className="hero-copy">
           <p className="eyebrow">🎉 Arriendo de juegos para cumpleaños y eventos</p>
           <h1>
-            <span>Diversion a domicilio con</span>
-            <strong>reserva online sin costo</strong>
+            <span>Diversion a domicilio</span>
+            <strong>Reserva online sin costo</strong>
           </h1>
           <p className="lead">
             Elige tus juegos, aprovecha packs promocionales y en el siguiente paso confirmas comuna, fecha y horario.
@@ -228,7 +293,6 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
             aria-label="Demostracion de juegos Juegazo en un evento"
           />
         </div>
-        <a className="primary-link hero-cta" href="#packs">Reservar juegos</a>
         <div className="stat-bar">🏀 Lo mas arrendado hoy: Basket Pro, Taca Taca y Hockey</div>
       </section>
 
@@ -297,14 +361,25 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
         <div className="game-grid">
           {games.map((game) => (
             <article className="game-card" key={game.slug}>
-              <img src={game.image_url} alt={game.name} />
-              <div>
-                <span className="tag">{game.tag}</span>
+              <div className="game-media">
+                <img src={game.image_url} alt={game.name} />
                 <h3>{game.name}</h3>
-                <p>{game.players} · Edad {game.age_recommendation}</p>
-                <p>{game.dimensions}</p>
+              </div>
+              <div className="game-body">
+                <div className="game-badges">
+                  <span className="tag">{game.tag}</span>
+                  <span className="tag price-tag">{money(game.price)}</span>
+                </div>
+                <ul className="game-detail-list">
+                  {(gameDetails[game.slug] || [
+                    game.players,
+                    `Edad recomendada: ${game.age_recommendation}`,
+                    `Medidas: ${game.dimensions}`
+                  ]).map((detail) => (
+                    <li key={detail}>{detail}</li>
+                  ))}
+                </ul>
                 <div className="card-bottom">
-                  <strong>{money(game.price)}</strong>
                   <div className="game-actions">
                     <a href={`/productos/${game.slug}`}>Detalle</a>
                     <button type="button" onClick={() => addGame(game)}>Agregar</button>
@@ -316,6 +391,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
         </div>
       </section>
 
+      {cart.length || checkoutStep === "confirm" || status ? (
       <section className="section reserve-layout" id="reservar" ref={reserveRef}>
         <div className="cart panel">
           <h2>Reserva</h2>
@@ -334,9 +410,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
                 </div>
               ))}
             </div>
-          ) : (
-            <p>Aun no agregas juegos.</p>
-          )}
+          ) : null}
           <div className="totals">
             <div><span>Subtotal</span><strong>{money(subtotal)}</strong></div>
             <div><span>Traslado</span><strong>{money(transfer)}</strong></div>
@@ -402,21 +476,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
           {status ? <p className="status">{status}</p> : null}
         </form>
       </section>
-
-      <section className="section news-strip" id="noticias">
-        <div className="section-head">
-          <h2>Noticias Juegazo</h2>
-        </div>
-        <div className="news-strip-grid">
-          {newsPosts.slice(0, 3).map((post) => (
-            <a className="news-mini" href={`/noticias/${post.slug}`} key={post.slug}>
-              <span>{new Date(post.date).toLocaleDateString("es-CL")}</span>
-              <strong>{post.title}</strong>
-            </a>
-          ))}
-        </div>
-        <a className="primary-link news-all" href="/noticias">Ver todas las noticias</a>
-      </section>
+      ) : null}
 
       <section className="section business-info" aria-labelledby="como-funciona-title">
         <div>
