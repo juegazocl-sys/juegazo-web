@@ -79,6 +79,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
   const [checkoutStep, setCheckoutStep] = useState("select");
   const [status, setStatus] = useState("");
   const [sending, setSending] = useState(false);
+  const [confirmedReservation, setConfirmedReservation] = useState(null);
   const packBuilderRef = useRef(null);
   const reserveRef = useRef(null);
   const formRef = useRef(null);
@@ -113,6 +114,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
   }
 
   function addGame(game) {
+    setConfirmedReservation(null);
     setCheckoutStep("select");
     setCart((current) => [
       ...current,
@@ -152,6 +154,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
   }
 
   function addPack(pack) {
+    setConfirmedReservation(null);
     const pickCount = Number(pack.picks_count || 0);
     if (pickCount > 0) {
       setActivePack({ pack, picks: defaultPackPicks(pack) });
@@ -178,6 +181,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
   }
 
   function removeItem(index) {
+    setConfirmedReservation(null);
     setCheckoutStep("select");
     setCart((current) => current.filter((_, itemIndex) => itemIndex !== index));
   }
@@ -227,6 +231,25 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
     setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   }
 
+  function resetReservation() {
+    setCart([]);
+    setActivePack(null);
+    setCheckoutStep("select");
+    setStatus("");
+    setConfirmedReservation(null);
+    setForm((current) => ({
+      ...current,
+      customer_name: "",
+      customer_phone: "",
+      customer_email: "",
+      event_date: "",
+      start_time: "",
+      end_time: "",
+      notes: ""
+    }));
+    setTimeout(() => document.getElementById("packs")?.scrollIntoView({ behavior: "smooth" }), 50);
+  }
+
   async function submitReservation(event) {
     event.preventDefault();
     if (!cart.length) {
@@ -254,11 +277,21 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
       });
       const data = await response.json();
       if (!response.ok || !data.ok) throw new Error(data.error || "No se pudo crear la reserva");
+      setConfirmedReservation({
+        id: data.reservation?.id,
+        form: { ...form },
+        items: [...cart],
+        subtotal,
+        transfer,
+        total,
+        emailOk: Boolean(data.email?.ok)
+      });
       setCart([]);
       setActivePack(null);
       setCheckoutStep("select");
-      setStatus("Reserva recibida. Te contactaremos por WhatsApp.");
+      setStatus("");
       setForm((current) => ({ ...current, customer_name: "", customer_phone: "", customer_email: "", notes: "" }));
+      setTimeout(() => reserveRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
     } catch (error) {
       setStatus(error.message);
     } finally {
@@ -398,7 +431,80 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
         </div>
       </section>
 
-      {cart.length || checkoutStep === "confirm" || status ? (
+      {confirmedReservation ? (
+      <section className="section confirmation-section" id="reserva-enviada" ref={reserveRef}>
+        <div className="confirmation-panel">
+          <div className="confirmation-copy">
+            <span className="confirmation-kicker">Reserva enviada</span>
+            <h2>Gracias, recibimos tu solicitud</h2>
+            <p>
+              Revisaremos disponibilidad y te contactaremos por WhatsApp para confirmar los detalles del evento.
+            </p>
+            <div className="confirmation-id">
+              <span>ID reserva</span>
+              <strong>{confirmedReservation.id}</strong>
+            </div>
+          </div>
+
+          <div className="confirmation-summary">
+            <div className="summary-block">
+              <h3>Datos del evento</h3>
+              <dl>
+                <div><dt>Nombre</dt><dd>{confirmedReservation.form.customer_name}</dd></div>
+                <div><dt>WhatsApp</dt><dd>{confirmedReservation.form.customer_phone}</dd></div>
+                {confirmedReservation.form.customer_email ? (
+                  <div><dt>Email</dt><dd>{confirmedReservation.form.customer_email}</dd></div>
+                ) : null}
+                <div><dt>Comuna</dt><dd>{confirmedReservation.form.event_commune}</dd></div>
+                <div><dt>Fecha</dt><dd>{confirmedReservation.form.event_date}</dd></div>
+                {confirmedReservation.form.start_time || confirmedReservation.form.end_time ? (
+                  <div>
+                    <dt>Horario</dt>
+                    <dd>
+                      {[confirmedReservation.form.start_time, confirmedReservation.form.end_time].filter(Boolean).join(" a ")}
+                    </dd>
+                  </div>
+                ) : null}
+              </dl>
+            </div>
+
+            <div className="summary-block">
+              <h3>Productos reservados</h3>
+              <div className="confirmation-items">
+                {confirmedReservation.items.map((item, index) => (
+                  <article key={`${item.slug}-${index}`}>
+                    <div>
+                      <strong>{item.name}</strong>
+                      <span>{item.items.map((slug) => gameMap[slug]?.name || slug).join(" + ")}</span>
+                    </div>
+                    <b>{money(item.price)}</b>
+                  </article>
+                ))}
+              </div>
+              <div className="confirmation-total">
+                <div><span>Subtotal</span><strong>{money(confirmedReservation.subtotal)}</strong></div>
+                <div><span>Traslado</span><strong>{money(confirmedReservation.transfer)}</strong></div>
+                <div><span>Total</span><strong>{money(confirmedReservation.total)}</strong></div>
+              </div>
+            </div>
+
+            {confirmedReservation.form.notes ? (
+              <div className="summary-block summary-notes">
+                <h3>Notas</h3>
+                <p>{confirmedReservation.form.notes}</p>
+              </div>
+            ) : null}
+          </div>
+
+          <div className="confirmation-actions">
+            <a className="primary-link" href={`https://wa.me/56989010309?text=${encodeURIComponent(`Hola Juegazo, envie una reserva desde la web. ID: ${confirmedReservation.id}`)}`}>
+              Escribir por WhatsApp
+            </a>
+            <button type="button" className="ghost" onClick={resetReservation}>Hacer otra reserva</button>
+          </div>
+        </div>
+      </section>
+      ) : cart.length || checkoutStep === "confirm" || status ? (
       <section className="section reserve-layout" id="reservar" ref={reserveRef}>
         <div className="cart panel">
           <h2>Reserva</h2>
