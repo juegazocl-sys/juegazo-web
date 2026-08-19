@@ -4,6 +4,7 @@ import { getProductUrl } from "../lib/product-seo";
 
 export default function sitemap() {
   const siteUpdated = new Date("2026-08-12");
+  const newsUpdated = new Date(newsPosts[0]?.date || "2026-08-12");
   return [
     {
       url: SITE_URL,
@@ -13,7 +14,7 @@ export default function sitemap() {
     },
     {
       url: `${SITE_URL}/noticias`,
-      lastModified: siteUpdated,
+      lastModified: newsUpdated,
       changeFrequency: "weekly",
       priority: 0.8
     },

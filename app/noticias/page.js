@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { newsPosts, SITE_URL } from "../../lib/news";
+import { formatNewsDate, newsPosts, SITE_URL } from "../../lib/news";
 
 export const metadata = {
   title: "Noticias y consejos | Juegazo",
@@ -24,7 +24,7 @@ export default function NoticiasPage() {
       <section className="news-grid" aria-label="Noticias">
         {newsPosts.map((post) => (
           <article className="news-card" key={post.slug}>
-            <time dateTime={post.date}>{new Date(post.date).toLocaleDateString("es-CL")}</time>
+            <time dateTime={post.date}>{formatNewsDate(post.date)}</time>
             <h2>{post.title}</h2>
             <p>{post.excerpt}</p>
             <Link href={`/noticias/${post.slug}`}>Leer noticia</Link>

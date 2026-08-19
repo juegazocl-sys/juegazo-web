@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getNewsPost, newsPosts, SITE_URL } from "../../../lib/news";
+import { fallbackGames } from "../../../lib/catalog";
+import { formatNewsDate, getNewsPost, newsPosts, SITE_URL } from "../../../lib/news";
 
 export function generateStaticParams() {
   return newsPosts.map((post) => ({ slug: post.slug }));
@@ -29,6 +30,9 @@ export default function NoticiaPage({ params }) {
   if (!post) notFound();
 
   const url = `${SITE_URL}/noticias/${post.slug}`;
+  const relatedProducts = (post.relatedProductSlugs || [])
+    .map((slug) => fallbackGames.find((game) => game.slug === slug))
+    .filter(Boolean);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -64,12 +68,23 @@ export default function NoticiaPage({ params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
         <Link className="back-link" href="/noticias">Volver a noticias</Link>
-        <time dateTime={post.date}>{new Date(post.date).toLocaleDateString("es-CL")}</time>
+        <time dateTime={post.date}>{formatNewsDate(post.date)}</time>
         <h1>{post.title}</h1>
         <p className="article-excerpt">{post.excerpt}</p>
         {post.body.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}
+        {relatedProducts.length ? (
+          <section aria-labelledby="related-products-title">
+            <h2 id="related-products-title">Juegos relacionados</h2>
+            <p>Revisa precio, edad recomendada y medidas antes de solicitar la reserva.</p>
+            <ul>
+              {relatedProducts.map((game) => (
+                <li key={game.slug}><Link href={`/productos/${game.slug}`}>{game.name}</Link></li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
         <p className="article-byline">Publicado por Juegazo · Informacion comercial y operativa del servicio.</p>
         <Link className="primary-link article-cta" href="/#packs">Reservar juegos</Link>
       </article>

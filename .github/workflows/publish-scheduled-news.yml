@@ -1,0 +1,46 @@
+name: Publicar noticias programadas
+
+on:
+  schedule:
+    - cron: "17 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scheduled-news
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Revisar calendario
+        run: node tools/check-news-schedule.js
+
+      - name: Liberar publicaciones vencidas
+        run: node tools/release-scheduled-news.js
+
+      - name: Confirmar cambios
+        shell: bash
+        run: |
+          if git diff --quiet -- lib/news-release.json; then
+            echo "No hay una noticia nueva para publicar."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/news-release.json
+          git commit -m "Publicar noticia programada"
+          git push origin main
