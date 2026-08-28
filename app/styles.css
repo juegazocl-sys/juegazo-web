@@ -1049,25 +1049,31 @@ main {
     padding-bottom: 88px;
   }
   .logo-top { padding: 6px 0; }
-  .logo-top img { height: 74px; }
-  .hero { padding: 36px 0 18px; gap: 10px; }
+  .logo-top img { height: 62px; }
+  .hero { padding: 22px 0 16px; gap: 9px; }
   .eyebrow {
     width: calc(100% - 20px);
-    padding: 9px 12px;
-    font-size: 18px;
+    padding: 8px 12px;
+    font-size: 15px;
   }
   .hero h1 {
-    margin-top: 14px;
-    font-size: 40px;
+    margin: 10px auto 8px;
+    font-size: 33px;
+    line-height: 1.03;
   }
   .lead {
     padding: 0 10px;
-    font-size: 21px;
+    font-size: 17px;
+    line-height: 1.42;
   }
   .hero-media {
     width: 100%;
-    height: 690px;
-    border-radius: 28px;
+    height: clamp(315px, 92vw, 420px);
+    margin-top: 6px;
+    border-radius: 24px;
+  }
+  .hero-media video {
+    object-position: center top;
   }
   .hero-cta {
     width: 100%;
@@ -1143,8 +1149,8 @@ main {
 }
 
 @media (max-width: 390px) {
-  .hero h1 { font-size: 40px; }
-  .lead { font-size: 21px; }
-  .eyebrow { font-size: 17px; }
+  .hero h1 { font-size: 31px; }
+  .lead { font-size: 16px; }
+  .eyebrow { font-size: 14px; }
   .pack-card h3 { font-size: 15px; }
 }
