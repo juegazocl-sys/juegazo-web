@@ -1013,6 +1013,46 @@ main {
   display: block;
   padding: 0 14px;
 }
+
+.local-hero {
+  max-width: 900px;
+}
+.local-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+.local-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.local-highlight {
+  border: 2px solid rgba(27, 159, 230, .2);
+  background: linear-gradient(145deg, #fff 0%, #eef9ff 100%);
+}
+.local-faq {
+  display: grid;
+  gap: 14px;
+}
+.local-faq > div {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #f8fbff;
+}
+.local-faq h3 {
+  margin: 0 0 8px;
+  color: var(--navy);
+}
+.local-faq p {
+  margin: 0;
+}
+.local-coverage-link {
+  display: inline-flex;
+  margin-top: 18px;
+}
 .related-card strong {
   padding-top: 12px;
   font-size: 18px;
@@ -1115,6 +1155,10 @@ main {
     flex-direction: column;
   }
   .product-card-actions .primary-link {
+    width: 100%;
+  }
+  .local-actions .primary-link,
+  .local-actions .ghost-link {
     width: 100%;
   }
   .game-grid,

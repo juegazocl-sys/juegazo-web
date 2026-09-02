@@ -104,6 +104,7 @@ export default function ProductoPage({ params }) {
             <li>Confirma comuna, fecha, hora de inicio y hora de termino.</li>
             <li>Juegazo revisa disponibilidad y confirma la reserva por WhatsApp.</li>
           </ol>
+          <p><Link href="/arriendo-juegos-rancagua-machali">Consulta el servicio de arriendo en Rancagua y Machalí</Link>.</p>
         </section>
 
         <section className="product-related">

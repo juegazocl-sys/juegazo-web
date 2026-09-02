@@ -76,11 +76,13 @@ export default function RootLayout({ children }) {
             <strong>Contacto</strong>
             <a href="tel:+56989010309">WhatsApp: +56 9 8901 0309</a>
             <a href="/productos">Catalogo de juegos</a>
+            <a href="/arriendo-juegos-rancagua-machali">Cobertura en Rancagua y Machalí</a>
           </div>
           <nav className="footer-nav" aria-label="Navegacion principal">
             <a href="/productos">Juegos</a>
             <a href="/#packs">Packs</a>
             <a href="/noticias">Noticias</a>
+            <a href="/arriendo-juegos-rancagua-machali">Rancagua y Machalí</a>
             <a href="/#contacto">Contacto</a>
           </nav>
         </footer>

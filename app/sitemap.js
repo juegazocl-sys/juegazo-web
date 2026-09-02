@@ -3,7 +3,7 @@ import { fallbackGames } from "../lib/catalog";
 import { getProductUrl } from "../lib/product-seo";
 
 export default function sitemap() {
-  const siteUpdated = new Date("2026-08-28");
+  const siteUpdated = new Date("2026-09-02");
   const newsUpdated = new Date(newsPosts[0]?.date || "2026-08-12");
   return [
     {
@@ -23,6 +23,12 @@ export default function sitemap() {
       lastModified: siteUpdated,
       changeFrequency: "weekly",
       priority: 0.9
+    },
+    {
+      url: `${SITE_URL}/arriendo-juegos-rancagua-machali`,
+      lastModified: siteUpdated,
+      changeFrequency: "weekly",
+      priority: 0.95
     },
     ...fallbackGames.map((game) => ({
       url: getProductUrl(game),

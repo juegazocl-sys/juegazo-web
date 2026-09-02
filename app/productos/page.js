@@ -23,6 +23,7 @@ export default function ProductosPage() {
         <Link className="back-link" href="/">Volver a reservar</Link>
         <h1>Juegos en arriendo</h1>
         <p>Paginas individuales preparadas para buscadores, con precio, medidas, edad recomendada y reserva online.</p>
+        <Link className="ghost-link local-coverage-link" href="/arriendo-juegos-rancagua-machali">Servicio en Rancagua y Machalí</Link>
       </section>
 
       <section className="product-list-grid" aria-label="Catalogo de juegos">
