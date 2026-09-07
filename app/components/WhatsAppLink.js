@@ -6,8 +6,12 @@ export default function WhatsAppLink({ children, className = "", message, source
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
   function trackClick() {
-    const event = { event: "whatsapp_click", source };
-    window.dataLayer?.push(event);
+    const parameters = {
+      event_category: "contacto",
+      event_label: source,
+      source
+    };
+    window.gtag?.("event", "whatsapp_click", parameters);
     window.fbq?.("trackCustom", "WhatsAppClick", { source });
   }
 

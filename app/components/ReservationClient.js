@@ -347,6 +347,15 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
       });
       const data = await response.json();
       if (!response.ok || !data.ok) throw new Error(data.error || "No se pudo crear la reserva");
+      window.gtag?.("event", "reservation_complete", {
+        currency: "CLP",
+        value: total,
+        transaction_id: data.reservation?.id,
+        event_category: "reserva",
+        event_label: form.event_commune,
+        event_region: form.event_region,
+        event_commune: form.event_commune
+      });
       setConfirmedReservation({
         id: data.reservation?.id,
         form: { ...form },

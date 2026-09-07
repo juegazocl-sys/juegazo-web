@@ -1,5 +1,6 @@
 import "./styles.css";
 import { SITE_URL } from "../lib/news";
+import GoogleAdsTag from "./components/GoogleAdsTag";
 import WhatsAppLink from "./components/WhatsAppLink";
 
 const logoUrl = "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/Diseno_sin_titulo_4.png?v=1773529966";
@@ -63,6 +64,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es-CL">
       <body>
+        <GoogleAdsTag />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }}
