@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { money } from "../../lib/catalog";
+import { RESERVATION_CONVERSION_ID } from "./GoogleAdsTag";
 import WhatsAppLink from "./WhatsAppLink";
 
 const defaultRegion = "Región de O'Higgins";
@@ -355,6 +356,12 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
         event_label: form.event_commune,
         event_region: form.event_region,
         event_commune: form.event_commune
+      });
+      window.gtag?.("event", "conversion", {
+        send_to: RESERVATION_CONVERSION_ID,
+        value: total,
+        currency: "CLP",
+        transaction_id: data.reservation?.id
       });
       setConfirmedReservation({
         id: data.reservation?.id,

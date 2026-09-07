@@ -1,6 +1,7 @@
 import Script from "next/script";
 
 export const GOOGLE_ADS_ID = "AW-18436060479";
+export const RESERVATION_CONVERSION_ID = `${GOOGLE_ADS_ID}/dfQHCIz6wPACEL_q_9ZE`;
 
 export default function GoogleAdsTag() {
   return (
