@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { money } from "../../lib/catalog";
+import WhatsAppLink from "./WhatsAppLink";
 
 const defaultRegion = "Región de O'Higgins";
 
@@ -387,6 +388,16 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
           <p className="lead">
             Elige tus juegos, aprovecha packs promocionales y en el siguiente paso confirmas comuna, fecha y horario.
           </p>
+          <div className="hero-contact-actions">
+            <a className="primary-link" href="#packs">Ver juegos y precios</a>
+            <WhatsAppLink
+              className="whatsapp-link"
+              message="Hola Juegazo, quiero cotizar juegos para un evento. Mi comuna es: "
+              source="inicio"
+            >
+              Cotizar por WhatsApp
+            </WhatsAppLink>
+          </div>
         </div>
         <div className="hero-media">
           <video
@@ -569,9 +580,9 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
           </div>
 
           <div className="confirmation-actions">
-            <a className="primary-link" href={`https://wa.me/56989010309?text=${encodeURIComponent(`Hola Juegazo, envie una reserva desde la web. ID: ${confirmedReservation.id}`)}`}>
+            <WhatsAppLink className="primary-link" message={`Hola Juegazo, envié una reserva desde la web. ID: ${confirmedReservation.id}`} source="reserva_enviada">
               Escribir por WhatsApp
-            </a>
+            </WhatsAppLink>
             <button type="button" className="ghost" onClick={resetReservation}>Hacer otra reserva</button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import "./styles.css";
 import { SITE_URL } from "../lib/news";
+import WhatsAppLink from "./components/WhatsAppLink";
 
 const logoUrl = "https://cdn.shopify.com/s/files/1/0990/5078/3013/files/Diseno_sin_titulo_4.png?v=1773529966";
 
@@ -67,6 +68,14 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }}
         />
         {children}
+        <WhatsAppLink
+          className="whatsapp-float"
+          message="Hola Juegazo, vi su página web y quiero cotizar juegos para un evento."
+          source="boton_flotante"
+        >
+          <span aria-hidden="true">💬</span>
+          <span>WhatsApp</span>
+        </WhatsAppLink>
         <footer className="site-footer" id="contacto">
           <div>
             <strong>Juegazo</strong>
@@ -74,7 +83,12 @@ export default function RootLayout({ children }) {
           </div>
           <div>
             <strong>Contacto</strong>
-            <a href="tel:+56989010309">WhatsApp: +56 9 8901 0309</a>
+            <WhatsAppLink
+              message="Hola Juegazo, vi su página web y quiero cotizar juegos para un evento."
+              source="footer"
+            >
+              WhatsApp: +56 9 8901 0309
+            </WhatsAppLink>
             <a href="/productos">Catalogo de juegos</a>
             <a href="/arriendo-juegos-rancagua-machali">Cobertura en Rancagua y Machalí</a>
           </div>

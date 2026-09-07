@@ -1,4 +1,5 @@
 import Link from "next/link";
+import WhatsAppLink from "../components/WhatsAppLink";
 import { SITE_URL } from "../../lib/news";
 
 const pageUrl = `${SITE_URL}/arriendo-juegos-rancagua-machali`;
@@ -86,6 +87,13 @@ export default function ArriendoJuegosRancaguaMachaliPage() {
         <p>Juegos para cumpleaños, celebraciones familiares y eventos, con entrega, instalación y retiro coordinados.</p>
         <div className="local-actions">
           <Link className="primary-link" href="/#packs">Revisar juegos y packs</Link>
+          <WhatsAppLink
+            className="whatsapp-link"
+            message="Hola Juegazo, quiero cotizar juegos a domicilio en Rancagua o Machalí. Mi comuna, fecha y cantidad de invitados son: "
+            source="landing_rancagua_machali"
+          >
+            Cotizar por WhatsApp
+          </WhatsAppLink>
           <Link className="ghost-link" href="/productos/taca">Ver arriendo de Taca Taca</Link>
         </div>
       </section>

@@ -1013,6 +1013,47 @@ main {
   display: block;
   padding: 0 14px;
 }
+.whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 26px;
+  border: 2px solid #16a864;
+  border-radius: 999px;
+  background: #fff;
+  color: #087541;
+  font-weight: 950;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(8, 117, 65, .12);
+}
+.hero-contact-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+.whatsapp-float {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 54px;
+  padding: 0 20px;
+  border: 2px solid rgba(255, 255, 255, .9);
+  border-radius: 999px;
+  background: #16a864;
+  color: #fff;
+  font-weight: 950;
+  text-decoration: none;
+  box-shadow: 0 14px 34px rgba(4, 92, 49, .3);
+}
+.whatsapp-float:hover,
+.whatsapp-link:hover { transform: translateY(-1px); }
 
 .local-hero {
   max-width: 900px;
@@ -1158,8 +1199,25 @@ main {
     width: 100%;
   }
   .local-actions .primary-link,
+  .local-actions .whatsapp-link,
   .local-actions .ghost-link {
     width: 100%;
+  }
+  .hero-contact-actions {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 0 8px;
+  }
+  .hero-contact-actions .primary-link,
+  .hero-contact-actions .whatsapp-link {
+    width: 100%;
+  }
+  .whatsapp-float {
+    right: 12px;
+    bottom: 12px;
+    min-height: 50px;
+    padding: 0 16px;
+    font-size: 14px;
   }
   .game-grid,
   .form-row,

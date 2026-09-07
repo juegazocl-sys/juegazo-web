@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import WhatsAppLink from "../../components/WhatsAppLink";
 import { fallbackGames, money } from "../../../lib/catalog";
 import {
   getProductBody,
@@ -67,6 +68,13 @@ export default function ProductoPage({ params }) {
             </div>
             <div className="product-cta-row">
               <Link className="primary-link" href={`/#packs?producto=${game.slug}`}>Reservar ahora</Link>
+              <WhatsAppLink
+                className="whatsapp-link"
+                message={`Hola Juegazo, quiero consultar disponibilidad y cotizar ${game.name}. Mi comuna y fecha son: `}
+                source={`producto_${game.slug}`}
+              >
+                Consultar por WhatsApp
+              </WhatsAppLink>
               <Link className="ghost-link" href="/#juegos">Ver mas juegos</Link>
             </div>
           </div>
