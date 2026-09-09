@@ -6,6 +6,14 @@ const WHATSAPP_NUMBER = "56989010309";
 const ATTRIBUTION_KEY = "juegazo_contact_attribution";
 const ATTRIBUTION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
+const REFERENCE_CODES = {
+  "GOOGLE-ADS": "1",
+  "GOOGLE-ORGANICO": "2",
+  "META-WEB": "3",
+  "REDES-ORGANICO": "3",
+  "WEB-DIRECTO": "4"
+};
+
 function cleanLabel(value, fallback = "") {
   return String(value || fallback)
     .trim()
@@ -66,8 +74,7 @@ export default function WhatsAppLink({ children, className = "", message, source
   }, []);
 
   const channel = attribution?.channel || "WEB-DIRECTO";
-  const campaign = attribution?.campaign ? `/${attribution.campaign}` : "";
-  const reference = `${channel}${campaign}`;
+  const reference = REFERENCE_CODES[channel] || "5";
   const attributedMessage = `${message}\n\nRef: ${reference}`;
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(attributedMessage)}`;
 
