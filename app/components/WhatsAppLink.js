@@ -75,7 +75,7 @@ export default function WhatsAppLink({ children, className = "", message, source
 
   const channel = attribution?.channel || "WEB-DIRECTO";
   const reference = REFERENCE_CODES[channel] || "5";
-  const attributedMessage = `${message}\n\nRef: ${reference}`;
+  const attributedMessage = `${message}\n\n${reference}`;
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(attributedMessage)}`;
 
   function trackClick() {
