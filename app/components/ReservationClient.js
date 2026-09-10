@@ -197,7 +197,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
         items: [game.slug]
       }
     ]);
-    setTimeout(() => reserveRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    setStatus(`${game.name} agregado a tu selección.`);
   }
 
   function fixedPackItems(pack) {
@@ -248,7 +248,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
     ]);
     setActivePack(null);
     setCheckoutStep("select");
-    setTimeout(() => reserveRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    setStatus(`${pack.name} agregado a tu selección.`);
   }
 
   function removeItem(index) {
@@ -288,8 +288,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
     setCart((current) => [...current, item]);
     setActivePack(null);
     setCheckoutStep("select");
-    setStatus("");
-    setTimeout(() => reserveRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    setStatus(`${activePack.pack.name} agregado a tu selección.`);
   }
 
   function continueReservation() {
@@ -757,6 +756,18 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
 
       {showFloatReserve && !cart.length && !activePack && !confirmedReservation && checkoutStep === "select" ? (
         <a className="float-reserva" href="#packs">Reservar juegos</a>
+      ) : null}
+      {cart.length && !confirmedReservation && checkoutStep === "select" ? (
+        <button
+          type="button"
+          className="cart-float"
+          onClick={() => reserveRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+          aria-label={`Ver selección de ${cart.length} producto${cart.length === 1 ? "" : "s"}`}
+        >
+          <span>🛒 {cart.length} {cart.length === 1 ? "producto" : "productos"}</span>
+          <strong>{money(total)}</strong>
+          <small>Ver selección</small>
+        </button>
       ) : null}
     </>
   );
