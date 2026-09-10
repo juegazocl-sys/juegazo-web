@@ -33,57 +33,57 @@ const eventTypes = [
 const gameDetails = {
   basket: [
     "Juego con marcador electronico e incluye pilas",
-    "Permite hasta 2 jugadores simultaneos",
+    "Permite hasta 2 jugadores simultáneos",
     "Edad recomendada: +6",
-    "Recomendacion: combinar con al menos 1 juego si el evento tiene mas de 5 invitados",
+    "Recomendación: combinar con al menos 1 juego si el evento tiene más de 5 invitados",
     "Medidas: 210 x 205 x 65 cm"
   ],
   taca: [
     "Juego de futbol manual",
-    "Permite hasta 4 jugadores simultaneos",
+    "Permite hasta 4 jugadores simultáneos",
     "Edad recomendada: +4",
-    "Recomendacion: combinar con al menos 1 juego si el evento tiene mas de 5 invitados",
+    "Recomendación: combinar con al menos 1 juego si el evento tiene más de 5 invitados",
     "Medidas: 120 x 60 x 65 cm"
   ],
   hockey: [
     "Juego electrico con marcador digital",
-    "Permite hasta 2 jugadores simultaneos",
+    "Permite hasta 2 jugadores simultáneos",
     "Edad recomendada: +6",
     "Este juego necesita conexion electrica",
     "Medidas: 152 x 78 x 80 cm"
   ],
   nerf: [
     "Incluye 5 pistolas Nerf y tela con puntaje",
-    "Permite hasta 5 jugadores simultaneos",
+    "Permite hasta 5 jugadores simultáneos",
     "Edad recomendada: +2",
     "Recomendado combinar con al menos 1 juego",
     "Medidas: 150 x 150 x 120 cm"
   ],
   subfutbol: [
     "Juego de mesa grande con dinamica de futbol",
-    "Permite hasta 2 jugadores simultaneos",
+    "Permite hasta 2 jugadores simultáneos",
     "Edad recomendada: +5",
     "Recomendado combinar con al menos 1 juego",
     "Medidas: 210 x 70 x 100 cm"
   ],
   pool: [
     "Juego en tamano para ninos",
-    "Permite hasta 2 jugadores simultaneos",
+    "Permite hasta 2 jugadores simultáneos",
     "Edad recomendada: +6",
     "Recomendado combinar con al menos 1 juego",
     "Medidas: 120 x 60 x 65 cm"
   ],
   pingpong: [
     "Juego de paletas",
-    "Permite hasta 2 jugadores simultaneos",
+    "Permite hasta 2 jugadores simultáneos",
     "Edad recomendada: +5",
     "Recomendado combinar con al menos 1 juego",
     "Medidas: 120 x 60 x 65 cm"
   ],
   inflable: [
     "2 versiones: acuatico o con pelotas",
-    "Permite hasta 3 jugadores simultaneos",
-    "Rango de edad: 4 a 8 anos",
+    "Permite hasta 3 jugadores simultáneos",
+    "Rango de edad: 4 a 8 años",
     "Este juego se puede reservar solo o en sus packs propios con juegos adicionales",
     "Medidas: 300 x 400 x 600 cm"
   ],
@@ -91,7 +91,7 @@ const gameDetails = {
     "Juego de equilibrio",
     "Sin limite de jugadores",
     "Edad recomendada: +6",
-    "Recomendacion: combinar con al menos 1 juego si el evento tiene mas de 5 invitados",
+    "Recomendación: combinar con al menos 1 juego si el evento tiene más de 5 invitados",
     "Medidas: 160 x 150 x 65 cm"
   ]
 };
