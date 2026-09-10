@@ -755,7 +755,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
       </section>
 
       {showFloatReserve && !cart.length && !activePack && !confirmedReservation && checkoutStep === "select" ? (
-        <a className="float-reserva" href="#packs">Reservar juegos</a>
+        <a className="float-reserva" href="#juegos">Ver juegos disponibles</a>
       ) : null}
       {cart.length && !confirmedReservation && checkoutStep === "select" ? (
         <button
