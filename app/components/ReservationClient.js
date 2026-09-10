@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { money } from "../../lib/catalog";
 import { RESERVATION_CONVERSION_ID } from "./GoogleAdsTag";
 import WhatsAppLink from "./WhatsAppLink";
+import { getReservationJourney } from "./AttributionTracker";
 
 const defaultRegion = "Región de O'Higgins";
 
@@ -128,6 +129,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
     customer_email: "",
     event_region: defaultRegion,
     event_commune: normalizedServiceAreas.find((area) => area.region === defaultRegion)?.commune || "Rancagua",
+    event_address: "",
     event_type: eventTypes[0],
     children_count: "",
     event_date: "",
@@ -314,6 +316,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
       event_type: eventTypes[0],
       children_count: "",
       event_date: "",
+      event_address: "",
       start_time: "",
       end_time: "",
       notes: ""
@@ -337,6 +340,10 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
       transfer_amount: transfer,
       total_amount: total,
       source: "web",
+      journey: {
+        ...getReservationJourney(),
+        selected_items: cart.map((item) => item.name)
+      },
       items: cart
     };
 
@@ -376,7 +383,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
       setActivePack(null);
       setCheckoutStep("select");
       setStatus("");
-      setForm((current) => ({ ...current, customer_name: "", customer_phone: "", customer_email: "", notes: "" }));
+      setForm((current) => ({ ...current, customer_name: "", customer_phone: "", customer_email: "", event_address: "", notes: "" }));
       setTimeout(() => reserveRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
     } catch (error) {
       setStatus(error.message);
@@ -555,6 +562,7 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
                 <div><dt>Niños invitados</dt><dd>{confirmedReservation.form.children_count === "" ? "Por definir" : confirmedReservation.form.children_count}</dd></div>
                 <div><dt>Región</dt><dd>{confirmedReservation.form.event_region}</dd></div>
                 <div><dt>Comuna</dt><dd>{confirmedReservation.form.event_commune}</dd></div>
+                <div><dt>Dirección</dt><dd>{confirmedReservation.form.event_address}</dd></div>
                 <div><dt>Fecha</dt><dd>{confirmedReservation.form.event_date}</dd></div>
                 {confirmedReservation.form.start_time || confirmedReservation.form.end_time ? (
                   <div>
@@ -695,6 +703,16 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
                 </option>
               ))}
             </select>
+          </label>
+          <label>
+            Dirección exacta del evento
+            <input
+              required
+              autoComplete="street-address"
+              placeholder="Calle, número, parcela o condominio"
+              value={form.event_address}
+              onChange={(event) => updateField("event_address", event.target.value)}
+            />
           </label>
           <div className="form-row">
             <label>
