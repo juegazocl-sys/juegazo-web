@@ -1017,8 +1017,8 @@ main {
 .cart-float {
   position: fixed;
   right: 18px;
-  bottom: 18px;
-  z-index: 20;
+  bottom: 88px;
+  z-index: 40;
   display: grid;
   grid-template-columns: auto auto;
   align-items: center;
@@ -1036,6 +1036,14 @@ main {
 .cart-float strong { color: #fff; }
 .cart-float small { grid-column: 1 / -1; color: #cfe5ff; }
 .cart-float:hover { background: var(--brand-strong); }
+
+@media (max-width: 600px) {
+  .cart-float {
+    right: 12px;
+    bottom: 86px;
+    max-width: calc(100% - 24px);
+  }
+}
 .whatsapp-link {
   display: inline-flex;
   align-items: center;

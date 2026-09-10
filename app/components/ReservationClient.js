@@ -435,25 +435,6 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
         <div className="stat-bar">🏀 Lo mas arrendado hoy: Basket Pro, Taca Taca y Hockey</div>
       </section>
 
-      <section className="section" id="packs">
-        <div className="section-head">
-          <div>
-            <h2>Packs recomendados</h2>
-            <p className="section-note">El inflable se puede reservar solo o como base en sus packs propios. No aparece como juego adicional en otros packs.</p>
-          </div>
-        </div>
-        <div className="pack-grid">
-          {packs.map((pack) => (
-            <article className="pack-card" key={pack.slug}>
-              <span className="tag">{pack.tag}</span>
-              <h3>{pack.name}</h3>
-              <strong>{money(pack.price)}</strong>
-              <button type="button" onClick={() => addPack(pack)}>Agregar pack</button>
-            </article>
-          ))}
-        </div>
-      </section>
-
       {activePack ? (
         <section className="section pack-builder-section" id="detalle-pack" ref={packBuilderRef}>
           <div className="panel pack-builder">
@@ -528,6 +509,25 @@ export default function ReservationClient({ games, packs, serviceAreas, source }
                   </div>
                 </div>
               </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section" id="packs">
+        <div className="section-head">
+          <div>
+            <h2>Packs recomendados</h2>
+            <p className="section-note">Si prefieres una combinación más conveniente, revisa estos packs después de explorar los juegos individuales.</p>
+          </div>
+        </div>
+        <div className="pack-grid">
+          {packs.map((pack) => (
+            <article className="pack-card" key={pack.slug}>
+              <span className="tag">{pack.tag}</span>
+              <h3>{pack.name}</h3>
+              <strong>{money(pack.price)}</strong>
+              <button type="button" onClick={() => addPack(pack)}>Agregar pack</button>
             </article>
           ))}
         </div>
