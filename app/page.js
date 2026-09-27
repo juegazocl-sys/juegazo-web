@@ -5,8 +5,8 @@ import { SITE_URL } from "../lib/news";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Arriendo de juegos para cumpleanos y eventos | Juegazo",
-  description: "Arrienda juegos y packs para cumpleanos, fiestas privadas y eventos. Revisa precios y solicita tu reserva online.",
+  title: "Arriendo de juegos para cumpleaños en Rancagua | Juegazo",
+  description: "Arrienda juegos, Taca Taca e inflables para cumpleaños y eventos en Rancagua, Machalí y O'Higgins. Revisa precios y reserva online.",
   alternates: { canonical: SITE_URL }
 };
 

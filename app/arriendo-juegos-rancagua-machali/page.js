@@ -5,11 +5,11 @@ import { SITE_URL } from "../../lib/news";
 const pageUrl = `${SITE_URL}/arriendo-juegos-rancagua-machali`;
 
 export const metadata = {
-  title: "Arriendo de juegos en Rancagua y Machalí | Juegazo",
-  description: "Arriendo de Taca Taca y juegos para cumpleaños y eventos a domicilio en Rancagua, Machalí y comunas de la Región de O'Higgins.",
+  title: "Arriendo de juegos para cumpleaños en Rancagua | Juegazo",
+  description: "Arriendo de juegos, Taca Taca e inflables para cumpleaños y eventos a domicilio en Rancagua, Machalí y la Región de O'Higgins. Revisa precios y reserva online.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Arriendo de juegos en Rancagua y Machalí | Juegazo",
+    title: "Arriendo de juegos para cumpleaños en Rancagua | Juegazo",
     description: "Juegos para cumpleaños y eventos con despacho, instalación y retiro coordinado en Rancagua, Machalí y la Región de O'Higgins.",
     url: pageUrl,
     type: "website"
@@ -32,6 +32,14 @@ const faq = [
   {
     question: "¿Puedo reservar varios juegos para un cumpleaños?",
     answer: "Sí. Puedes elegir juegos individuales o packs para crear varias estaciones y reducir los tiempos de espera entre invitados."
+  },
+  {
+    question: "¿Arriendan inflables para cumpleaños en Rancagua?",
+    answer: "Sí. Puedes solicitar un inflable para cumpleaños en Rancagua y combinarlo con Taca Taca, Tetris Tumble XL, Basket Pro u otros juegos, sujeto a disponibilidad y espacio de instalación."
+  },
+  {
+    question: "¿Cuánto cuesta arrendar juegos para un cumpleaños?",
+    answer: "Los precios vigentes aparecen en cada ficha y en el catálogo. El total depende de los juegos o packs elegidos y del traslado correspondiente a la comuna del evento."
   }
 ];
 
@@ -83,10 +91,10 @@ export default function ArriendoJuegosRancaguaMachaliPage() {
       <section className="news-hero local-hero">
         <Link className="back-link" href="/">Volver a Juegazo</Link>
         <span className="tag">Servicio a domicilio en O&apos;Higgins</span>
-        <h1>Arriendo de juegos en Rancagua y Machalí</h1>
-        <p>Juegos para cumpleaños, celebraciones familiares y eventos, con entrega, instalación y retiro coordinados.</p>
+        <h1>Arriendo de juegos para cumpleaños en Rancagua y Machalí</h1>
+        <p>Arrienda Taca Taca, inflables y juegos para cumpleaños o eventos, con entrega, instalación y retiro coordinados en la Región de O&apos;Higgins.</p>
         <div className="local-actions">
-          <Link className="primary-link" href="/#packs">Revisar juegos y packs</Link>
+          <Link className="primary-link" href="/#juegos">Ver juegos y precios</Link>
           <WhatsAppLink
             className="whatsapp-link"
             message="Hola Juegazo, quiero cotizar juegos a domicilio en Rancagua o Machalí. Mi comuna, fecha y cantidad de invitados son: "
@@ -110,6 +118,20 @@ export default function ArriendoJuegosRancaguaMachaliPage() {
           <p>El Taca Taca es una alternativa práctica para cumpleaños y eventos familiares porque permite hasta cuatro jugadores, funciona bien en quinchos, terrazas y salones, y se puede combinar con juegos de mayor movimiento.</p>
           <p>Antes de reservar revisa sus medidas, el valor vigente y la edad recomendada en la ficha del producto. La disponibilidad se confirma después de recibir los datos del evento.</p>
           <Link className="primary-link" href="/productos/taca">Ver precio y medidas del Taca Taca</Link>
+        </section>
+
+        <section className="product-content local-highlight">
+          <h2>Arriendo de inflables para cumpleaños en Rancagua</h2>
+          <p>El inflable es una alternativa central para cumpleaños infantiles. Antes de reservar, confirma que el lugar tenga acceso, superficie adecuada y espacio suficiente para una instalación segura.</p>
+          <p>Puedes arrendarlo individualmente o combinarlo con juegos de competencia y estaciones más compactas para mantener a los invitados participando durante el evento.</p>
+          <Link className="primary-link" href="/productos/inflable">Ver precio y medidas del inflable</Link>
+        </section>
+
+        <section className="product-content">
+          <h2>Opciones para armar un cumpleaños con varias estaciones</h2>
+          <p>Para grupos pequeños puede bastar un juego protagonista. Cuando hay más invitados, combinar Taca Taca, Tetris Tumble XL, Basket Pro, Nerf o un inflable ayuda a reducir esperas y ofrece actividades con distintos ritmos.</p>
+          <p>En el catálogo puedes comparar precios, edades recomendadas, cantidad de jugadores y medidas antes de enviar la solicitud.</p>
+          <Link className="ghost-link" href="/productos">Comparar todos los juegos</Link>
         </section>
 
         <section className="product-content">

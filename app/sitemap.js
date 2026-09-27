@@ -3,7 +3,7 @@ import { fallbackGames } from "../lib/catalog";
 import { getProductUrl } from "../lib/product-seo";
 
 export default function sitemap() {
-  const siteUpdated = new Date("2026-09-02");
+  const siteUpdated = new Date("2026-09-27");
   const newsUpdated = new Date(newsPosts[0]?.date || "2026-08-12");
   return [
     {
