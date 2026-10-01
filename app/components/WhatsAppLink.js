@@ -66,7 +66,7 @@ function detectAttribution() {
   return { channel: "WEB-DIRECTO", campaign: "", medium: "", capturedAt: Date.now() };
 }
 
-export default function WhatsAppLink({ children, className = "", message, source = "web" }) {
+export default function WhatsAppLink({ children, className = "", message, source = "web", referenceCode }) {
   const [attribution, setAttribution] = useState(null);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function WhatsAppLink({ children, className = "", message, source
   }, []);
 
   const channel = attribution?.channel || "WEB-DIRECTO";
-  const reference = REFERENCE_CODES[channel] || "5";
+  const reference = String(referenceCode || REFERENCE_CODES[channel] || "5").replace(/\D/g, "").slice(0, 3) || "5";
   const attributedMessage = `${message}\n\n${reference}`;
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(attributedMessage)}`;
 

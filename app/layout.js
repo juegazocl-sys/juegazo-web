@@ -74,11 +74,12 @@ export default function RootLayout({ children }) {
         {children}
         <WhatsAppLink
           className="whatsapp-float"
-          message="Hola Juegazo, vi su página web y quiero cotizar juegos para un evento."
-          source="boton_flotante"
+          message="Hola Juegazo, quiero reservar juegos para un evento con MaríaJesus."
+          source="reserva_mariajesus"
+          referenceCode="9"
         >
           <span aria-hidden="true">💬</span>
-          <span>WhatsApp</span>
+          <span>Reserva con MaríaJesus</span>
         </WhatsAppLink>
         <footer className="site-footer" id="contacto">
           <div>
