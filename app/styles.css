@@ -1040,7 +1040,7 @@ main {
 @media (max-width: 600px) {
   .cart-float {
     right: 12px;
-    bottom: 86px;
+    bottom: calc(148px + env(safe-area-inset-bottom, 0px));
     max-width: calc(100% - 24px);
   }
 }
@@ -1245,10 +1245,13 @@ main {
   }
   .whatsapp-float {
     right: 12px;
-    bottom: 12px;
+    bottom: calc(82px + env(safe-area-inset-bottom, 0px));
     min-height: 50px;
     padding: 0 16px;
     font-size: 14px;
+  }
+  .float-reserva {
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   }
   .game-grid,
   .form-row,
